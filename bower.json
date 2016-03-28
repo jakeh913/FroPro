@@ -1,0 +1,39 @@
+{
+  "name": "forestprofessionals",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Jake Hendee"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet": "^0.7.7",
+    "angular-route": "^1.5.0",
+    "angular-bootstrap": "^1.2.1",
+    "bootstrap-css-only": "^3.3.6",
+    "angular-animate": "^1.5.0",
+    "angular-ui-tinymce": "^0.0.14",
+    "angular-touch": "^1.5.0",
+    "angular": "^1.5.0",
+    "tinymce": "^4.3.7",
+    "angular-sanitize": "^1.5.0",
+    "leaflet.markercluster": "^0.4.0"
+  },
+  "overrides": {
+    "tinymce-dist": {
+      "main": "**/*"
+    }, 
+	"leaflet.markercluster": {
+      "main": "**/*"
+    }
+  }
+}

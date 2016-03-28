@@ -1,0 +1,10 @@
+Auth Plan of Action:
+
+DONE-	Create Login Form (ng Route)
+DONE- 	Back up whole project
+DONE-	Create user model with hash and salt (date initiated, date updated, email, company-optional) - should be able to copy example almost exactly
+		DONE- Research how to store jwt secret as env variable (config.js?)
+DONE-	Introduce middleware to app.js (passport, routing (server side for get profile, post login, and post register)
+DONE-	Set up app_api folder like example - adjust each file to match fp app
+
+Next: See changes in routes.js in NG folder. These changes, copied from the authAp, have hindered registration & login, and are not pulling user info into $scope from DB.

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://docs.angularjs.org/examples/example-example112/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+  <meta charset="UTF-8">
+  <title>Example - example-example112</title>
+  
+
+  <script src="angular.min(1).js"></script>
+  
+
+  
+</head>
+<body ng-app="windowExample" class="ng-scope">
+  <script>
+  angular.module('windowExample', [])
+    .controller('ExampleController', ['$scope', '$window', function($scope, $window) {
+      $scope.greeting = 'Hello, World!';
+      $scope.doGreeting = function(greeting) {
+        $window.alert(greeting);
+      };
+    }]);
+</script>
+<div ng-controller="ExampleController" class="ng-scope">
+  <input type="text" ng-model="greeting" aria-label="greeting" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+  <button ng-click="doGreeting(greeting)">ALERT</button>
+</div>
+
+</body></html>

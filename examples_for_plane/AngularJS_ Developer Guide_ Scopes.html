@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://docs.angularjs.org/guide/scope -->
+<html lang="en" ng-app="docsApp" ng-strict-di="" ng-controller="DocsController" class="ng-scope"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="Description" content="AngularJS is what HTML would have been, had it been designed for building web-apps.
+                 Declarative templates with data-binding, MVC, dependency injection and great
+                 testability story all implemented with pure client-side JavaScript!">
+  <meta name="fragment" content="!">
+  <title ng-bind-template="AngularJS: Developer Guide: Scopes" class="ng-binding">AngularJS: Developer Guide: Scopes</title>
+
+  <script type="text/javascript" async="" src="./AngularJS_ Developer Guide_ Scopes_files/ga.js"></script><script type="text/javascript">
+    // dynamically add base tag as well as css and javascript files.
+    // we can't add css/js the usual way, because some browsers (FF) eagerly prefetch resources
+    // before the base attribute is added, causing 404 and terribly slow loading of the docs app.
+    (function() {
+      var indexFile = (location.pathname.match(/\/(index[^\.]*\.html)/) || ['', ''])[1],
+          rUrl = /(#!\/|api|guide|misc|tutorial|error|index[^\.]*\.html).*$/,
+          baseUrl = location.href.replace(rUrl, indexFile),
+          production = location.hostname === 'docs.angularjs.org',
+          headEl = document.getElementsByTagName('head')[0],
+          sync = true;
+
+      addTag('base', {href: baseUrl});
+
+
+      addTag('link', {rel: 'stylesheet', href: 'components/bootstrap-3.1.1/css/bootstrap.min.css', type: 'text/css'});
+      addTag('link', {rel: 'stylesheet', href: 'components/open-sans-fontface-1.0.4/open-sans.css', type: 'text/css'});
+      addTag('link', {rel: 'stylesheet', href: 'css/prettify-theme.css', type: 'text/css'});
+      addTag('link', {rel: 'stylesheet', href: 'css/docs.css', type: 'text/css'});
+      addTag('link', {rel: 'stylesheet', href: 'css/animations.css', type: 'text/css'});
+      
+
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js' }, sync);
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js' }, sync);
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js' }, sync);
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.min.js' }, sync);
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.min.js' }, sync);
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.min.js' }, sync);
+      addTag('script', {src: '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js' }, sync);
+      addTag('script', {src: 'components/marked-0.3.3/lib/marked.js' }, sync);
+      addTag('script', {src: 'js/angular-bootstrap/dropdown-toggle.min.js' }, sync);
+      addTag('script', {src: 'components/lunr.js-0.5.12/lunr.min.js' }, sync);
+      addTag('script', {src: 'components/google-code-prettify-1.0.1/src/prettify.js' }, sync);
+      addTag('script', {src: 'components/google-code-prettify-1.0.1/src/lang-css.js' }, sync);
+      addTag('script', {src: 'js/versions-data.js' }, sync);
+      addTag('script', {src: 'js/pages-data.js' }, sync);
+      addTag('script', {src: 'js/nav-data.js' }, sync);
+      addTag('script', {src: 'js/docs.min.js' }, sync);
+      
+
+      function addTag(name, attributes, sync) {
+        var el = document.createElement(name),
+            attrName;
+
+        for (attrName in attributes) {
+          el.setAttribute(attrName, attributes[attrName]);
+        }
+
+        sync ? document.write(outerHTML(el)) : headEl.appendChild(el);
+      }
+
+      function outerHTML(node){
+        // if IE, Chrome take the internal method otherwise build one
+        return node.outerHTML || (
+            function(n){
+                var div = document.createElement('div'), h;
+                div.appendChild(n);
+                h = div.innerHTML;
+                div = null;
+                return h;
+            })(node);
+      }
+    })();
+
+    // GA asynchronous tracker
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8594346-3']);
+    _gaq.push(['_setDomainName', '.angularjs.org']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script><!--<base href="https://docs.angularjs.org/">--><base href="."><link rel="stylesheet" href="./AngularJS_ Developer Guide_ Scopes_files/bootstrap.min.css" type="text/css"><link rel="stylesheet" href="./AngularJS_ Developer Guide_ Scopes_files/open-sans.css" type="text/css"><link rel="stylesheet" href="./AngularJS_ Developer Guide_ Scopes_files/prettify-theme.css" type="text/css"><link rel="stylesheet" href="./AngularJS_ Developer Guide_ Scopes_files/docs.css" type="text/css"><link rel="stylesheet" href="./AngularJS_ Developer Guide_ Scopes_files/animations.css" type="text/css"><script src="./AngularJS_ Developer Guide_ Scopes_files/angular.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/angular-resource.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/angular-route.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/angular-cookies.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/angular-sanitize.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/angular-touch.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/angular-animate.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/marked.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/dropdown-toggle.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/lunr.min.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/prettify.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/lang-css.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/versions-data.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/pages-data.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/nav-data.js"></script><script src="./AngularJS_ Developer Guide_ Scopes_files/docs.min.js"></script>
+</head>
+<body>
+  <div id="wrapper">
+    <header scroll-y-offset-element="" class="header header-fixed">
+      <section class="navbar navbar-inverse docs-navbar-primary ng-scope" ng-controller="DocsSearchCtrl">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 header-branding">
+              <a class="brand navbar-brand" href="http://angularjs.org/">
+                <img width="117" height="30" class="logo" alt="Link to Angular JS Homepage" ng-src="img/angularjs-for-header-only.svg" src="./AngularJS_ Developer Guide_ Scopes_files/angularjs-for-header-only.svg">
+              </a>
+              <ul class="nav navbar-nav">
+                <li class="divider-vertical"></li>
+                <li><a href="http://angularjs.org/"><i class="icon-home icon-white"></i> Home</a></li>
+                <li class="divider-vertical"></li>
+                <li class="dropdown ng-isolate-scope">
+                  <a href="https://docs.angularjs.org/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-eye-open icon-white"></i> Learn <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="disabled"><a href="http://angularjs.org/">Why AngularJS?</a></li>
+                    <li><a href="http://www.youtube.com/user/angularjs">Watch</a></li>
+                    <li><a href="https://docs.angularjs.org/tutorial">Tutorial</a></li>
+                    <li><a href="https://www.madewithangular.com/">Case Studies</a></li>
+                    <li><a href="https://github.com/angular/angular-seed">Seed App project template</a></li>
+                    <li><a href="https://docs.angularjs.org/misc/faq">FAQ</a></li>
+                  </ul>
+                </li>
+                <li class="divider-vertical"></li>
+                <li class="dropdown active ng-isolate-scope">
+                  <a href="https://docs.angularjs.org/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-book icon-white"></i> Develop <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="https://docs.angularjs.org/tutorial">Tutorial</a></li>
+                    <li><a href="https://docs.angularjs.org/guide">Developer Guide</a></li>
+                    <li><a href="https://docs.angularjs.org/api">API Reference</a></li>
+                    <li><a href="https://docs.angularjs.org/error">Error Reference</a></li>
+                    <li><a href="https://docs.angularjs.org/misc/contribute">Contribute</a></li>
+                    <li><a href="http://code.angularjs.org/">Download</a></li>
+                  </ul>
+                </li>
+                <li class="divider-vertical"></li>
+                <li class="dropdown ng-isolate-scope">
+                  <a href="https://docs.angularjs.org/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-comment icon-white"></i> Discuss <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="http://blog.angularjs.org/">Blog</a></li>
+                    <li><a href="http://groups.google.com/group/angular">Mailing List</a></li>
+                    <li><a href="http://webchat.freenode.net/?channels=angularjs&amp;uio=d4">Chat Room</a></li>
+                    <li class="divider"></li>
+                    <li><a href="https://twitter.com/#!/angularjs">Twitter</a></li>
+                    <li><a href="https://plus.google.com/110323587230527980117">Google+</a></li>
+                    <li class="divider"></li>
+                    <li><a href="https://github.com/angular/angular.js">GitHub</a></li>
+                    <li><a href="https://github.com/angular/angular.js/issues">Issue Tracker</a></li>
+                  </ul>
+                </li>
+                <li class="divider-vertical"></li>
+              </ul>
+            </div>
+            <form ng-class="{focus:focus}" class="navbar-search col-md-3 docs-search ng-pristine ng-valid" ng-submit="submit()">
+              <span class="glyphicon glyphicon-search search-icon"></span>
+              <input type="text" name="as_q" class="search-query ng-pristine ng-untouched ng-valid ng-empty" placeholder="Click or press / to search" ng-focus="focus=true" ng-blur="focus=false" ng-change="search(q)" ng-model="q" docs-search-input="" autocomplete="off">
+            </form>
+          </div>
+        </div>
+        <div class="search-results-container ng-hide" ng-show="hasResults">
+          <div class="container">
+            <div class="search-results-frame">
+              <!-- ngRepeat: (key, value) in results track by key -->
+            </div>
+            <a href="" ng-click="hideResults()" class="search-close">
+              <span class="glyphicon glyphicon-remove search-close-icon"></span> Close
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="sup-header">
+        <div class="container main-grid main-header-grid">
+          <div class="grid-left">
+            <div ng-controller="DocsVersionsCtrl" class="picker version-picker ng-scope">
+              <select ng-options="v as (&#39;v&#39; + v.version + (v.isSnapshot ? &#39; (snapshot)&#39; : &#39;&#39;)) group by getGroupName(v) for v in docs_versions" ng-model="docs_version" ng-change="jumpToDocsVersion(docs_version)" class="docs-version-jump ng-pristine ng-untouched ng-valid ng-not-empty"><optgroup label="Latest"><option label="v1.5.1-build.4643 (snapshot)" value="object:8">v1.5.1-build.4643 (snapshot)</option><option label="v1.4.9" value="object:16">v1.4.9</option><option label="v1.3.20" value="object:36">v1.3.20</option><option label="v1.2.29" value="object:82">v1.2.29</option><option label="v1.1.5" value="object:114">v1.1.5</option><option label="v1.0.8" value="object:120">v1.0.8</option></optgroup><optgroup label="v1.5.x"><option label="v1.5.0" value="object:9">v1.5.0</option><option label="v1.5.0-rc.2" value="object:10">v1.5.0-rc.2</option><option label="v1.5.0-rc.1" value="object:11">v1.5.0-rc.1</option><option label="v1.5.0-rc.0" value="object:12">v1.5.0-rc.0</option><option label="v1.5.0-beta.2" value="object:13">v1.5.0-beta.2</option><option label="v1.5.0-beta.1" value="object:14">v1.5.0-beta.1</option><option label="v1.5.0-beta.0" value="object:15">v1.5.0-beta.0</option></optgroup><optgroup label="v1.4.x"><option label="v1.4.8" value="object:17">v1.4.8</option><option label="v1.4.7" value="object:18">v1.4.7</option><option label="v1.4.6" value="object:19">v1.4.6</option><option label="v1.4.5" value="object:20">v1.4.5</option><option label="v1.4.4" value="object:21">v1.4.4</option><option label="v1.4.3" value="object:22">v1.4.3</option><option label="v1.4.2" value="object:23">v1.4.2</option><option label="v1.4.1" value="object:24">v1.4.1</option><option label="v1.4.0" value="object:25">v1.4.0</option><option label="v1.4.0-rc.2" value="object:26">v1.4.0-rc.2</option><option label="v1.4.0-rc.1" value="object:27">v1.4.0-rc.1</option><option label="v1.4.0-rc.0" value="object:28">v1.4.0-rc.0</option><option label="v1.4.0-beta.6" value="object:29">v1.4.0-beta.6</option><option label="v1.4.0-beta.5" value="object:30">v1.4.0-beta.5</option><option label="v1.4.0-beta.4" value="object:31">v1.4.0-beta.4</option><option label="v1.4.0-beta.3" value="object:32">v1.4.0-beta.3</option><option label="v1.4.0-beta.2" value="object:33">v1.4.0-beta.2</option><option label="v1.4.0-beta.1" value="object:34">v1.4.0-beta.1</option><option label="v1.4.0-beta.0" value="object:35">v1.4.0-beta.0</option></optgroup><optgroup label="v1.3.x"><option label="v1.3.19" value="object:37">v1.3.19</option><option label="v1.3.18" value="object:38">v1.3.18</option><option label="v1.3.17" value="object:39">v1.3.17</option><option label="v1.3.16" value="object:40">v1.3.16</option><option label="v1.3.15" value="object:41">v1.3.15</option><option label="v1.3.14" value="object:42">v1.3.14</option><option label="v1.3.13" value="object:43">v1.3.13</option><option label="v1.3.12" value="object:44">v1.3.12</option><option label="v1.3.11" value="object:45">v1.3.11</option><option label="v1.3.10" value="object:46">v1.3.10</option><option label="v1.3.9" value="object:47">v1.3.9</option><option label="v1.3.8" value="object:48">v1.3.8</option><option label="v1.3.7" value="object:49">v1.3.7</option><option label="v1.3.6" value="object:50">v1.3.6</option><option label="v1.3.5" value="object:51">v1.3.5</option><option label="v1.3.4" value="object:52">v1.3.4</option><option label="v1.3.3" value="object:53">v1.3.3</option><option label="v1.3.2" value="object:54">v1.3.2</option><option label="v1.3.1" value="object:55">v1.3.1</option><option label="v1.3.0" value="object:56">v1.3.0</option><option label="v1.3.0-rc.5" value="object:57">v1.3.0-rc.5</option><option label="v1.3.0-rc.4" value="object:58">v1.3.0-rc.4</option><option label="v1.3.0-rc.3" value="object:59">v1.3.0-rc.3</option><option label="v1.3.0-rc.2" value="object:60">v1.3.0-rc.2</option><option label="v1.3.0-rc.1" value="object:61">v1.3.0-rc.1</option><option label="v1.3.0-rc.0" value="object:62">v1.3.0-rc.0</option><option label="v1.3.0-beta.19" value="object:63">v1.3.0-beta.19</option><option label="v1.3.0-beta.18" value="object:64">v1.3.0-beta.18</option><option label="v1.3.0-beta.17" value="object:65">v1.3.0-beta.17</option><option label="v1.3.0-beta.16" value="object:66">v1.3.0-beta.16</option><option label="v1.3.0-beta.15" value="object:67">v1.3.0-beta.15</option><option label="v1.3.0-beta.14" value="object:68">v1.3.0-beta.14</option><option label="v1.3.0-beta.13" value="object:69">v1.3.0-beta.13</option><option label="v1.3.0-beta.12" value="object:70">v1.3.0-beta.12</option><option label="v1.3.0-beta.11" value="object:71">v1.3.0-beta.11</option><option label="v1.3.0-beta.10" value="object:72">v1.3.0-beta.10</option><option label="v1.3.0-beta.9" value="object:73">v1.3.0-beta.9</option><option label="v1.3.0-beta.8" value="object:74">v1.3.0-beta.8</option><option label="v1.3.0-beta.7" value="object:75">v1.3.0-beta.7</option><option label="v1.3.0-beta.6" value="object:76">v1.3.0-beta.6</option><option label="v1.3.0-beta.5" value="object:77">v1.3.0-beta.5</option><option label="v1.3.0-beta.4" value="object:78">v1.3.0-beta.4</option><option label="v1.3.0-beta.3" value="object:79">v1.3.0-beta.3</option><option label="v1.3.0-beta.2" value="object:80">v1.3.0-beta.2</option><option label="v1.3.0-beta.1" value="object:81">v1.3.0-beta.1</option></optgroup><optgroup label="v1.2.x"><option label="v1.2.28" value="object:83">v1.2.28</option><option label="v1.2.27" value="object:84">v1.2.27</option><option label="v1.2.26" value="object:85">v1.2.26</option><option label="v1.2.25" value="object:86">v1.2.25</option><option label="v1.2.24" value="object:87">v1.2.24</option><option label="v1.2.23" value="object:88">v1.2.23</option><option label="v1.2.22" value="object:89">v1.2.22</option><option label="v1.2.21" value="object:90">v1.2.21</option><option label="v1.2.20" value="object:91">v1.2.20</option><option label="v1.2.19" value="object:92">v1.2.19</option><option label="v1.2.18" value="object:93">v1.2.18</option><option label="v1.2.17" value="object:94">v1.2.17</option><option label="v1.2.16" value="object:95">v1.2.16</option><option label="v1.2.15" value="object:96">v1.2.15</option><option label="v1.2.14" value="object:97">v1.2.14</option><option label="v1.2.13" value="object:98">v1.2.13</option><option label="v1.2.12" value="object:99">v1.2.12</option><option label="v1.2.11" value="object:100">v1.2.11</option><option label="v1.2.10" value="object:101">v1.2.10</option><option label="v1.2.9" value="object:102">v1.2.9</option><option label="v1.2.8" value="object:103">v1.2.8</option><option label="v1.2.7" value="object:104">v1.2.7</option><option label="v1.2.6" value="object:105">v1.2.6</option><option label="v1.2.5" value="object:106">v1.2.5</option><option label="v1.2.4" value="object:107">v1.2.4</option><option label="v1.2.3" value="object:108">v1.2.3</option><option label="v1.2.2" value="object:109">v1.2.2</option><option label="v1.2.1" value="object:110">v1.2.1</option><option label="v1.2.0" value="object:111">v1.2.0</option><option label="v1.2.0-rc.3" value="object:112">v1.2.0-rc.3</option><option label="v1.2.0-rc.2" value="object:113">v1.2.0-rc.2</option></optgroup><optgroup label="v1.1.x"><option label="v1.1.4" value="object:115">v1.1.4</option><option label="v1.1.3" value="object:116">v1.1.3</option><option label="v1.1.2" value="object:117">v1.1.2</option><option label="v1.1.1" value="object:118">v1.1.1</option><option label="v1.1.0" value="object:119">v1.1.0</option></optgroup><optgroup label="v1.0.x"><option label="v1.0.7" value="object:121">v1.0.7</option><option label="v1.0.6" value="object:122">v1.0.6</option><option label="v1.0.5" value="object:123">v1.0.5</option><option label="v1.0.4" value="object:124">v1.0.4</option><option label="v1.0.3" value="object:125">v1.0.3</option><option label="v1.0.2" value="object:126">v1.0.2</option><option label="v1.0.1" value="object:127">v1.0.1</option><option label="v1.0.0" value="object:128">v1.0.0</option><option label="v1.0.0rc2" value="object:129">v1.0.0rc2</option></optgroup></select>
+            </div>
+          </div>
+          <div class="grid-right">
+            <ul class="nav-breadcrumb">
+              <!-- ngRepeat: crumb in breadcrumb --><li ng-repeat="crumb in breadcrumb" class="nav-breadcrumb-entry naked-list ng-scope">
+                <span class="divider"> /</span>
+                <a ng-href="guide" class="ng-binding" href="https://docs.angularjs.org/guide">Developer Guide</a>
+              </li><!-- end ngRepeat: crumb in breadcrumb --><li ng-repeat="crumb in breadcrumb" class="nav-breadcrumb-entry naked-list ng-scope">
+                <span class="divider"> /</span>
+                <a ng-href="guide/scope" class="ng-binding" href="https://docs.angularjs.org/guide/scope">Scopes</a>
+              </li><!-- end ngRepeat: crumb in breadcrumb -->
+            </ul>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <section role="main" class="container main-body">
+      <div class="main-grid main-body-grid">
+        <div class="grid-left">
+          <a class="btn toc-toggle visible-xs" ng-click="toc=!toc">Show / Hide Table of Contents</a>
+          <div class="side-navigation ng-hide" ng-show="toc==true">
+            <ul class="nav-list naked-list">
+              <!-- ngRepeat: navGroup in currentArea.navGroups track by navGroup.name --><li ng-repeat="navGroup in currentArea.navGroups track by navGroup.name" class="nav-index-group ng-scope">
+                <a href="https://docs.angularjs.org/guide" ng-class="navClass(navGroup)" class="nav-index-group-heading ng-binding active">Developer Guide</a>
+                <ul class="aside-nav">
+                  <!-- ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/introduction" class="ng-binding">Introduction</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/concepts" class="ng-binding">Conceptual Overview</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/databinding" class="ng-binding">Data Binding</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/controller" class="ng-binding">Controllers</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/services" class="ng-binding">Services</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active current">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/scope" class="ng-binding">Scopes</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/di" class="ng-binding">Dependency Injection</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/templates" class="ng-binding">Templates</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/expression" class="ng-binding">Expressions</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/interpolation" class="ng-binding">Interpolation</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/filter" class="ng-binding">Filters</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/forms" class="ng-binding">Forms</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/directive" class="ng-binding">Directives</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/component" class="ng-binding">Components</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/animations" class="ng-binding">Animations</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/module" class="ng-binding">Modules</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/compiler" class="ng-binding">HTML Compiler</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/providers" class="ng-binding">Providers</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/bootstrap" class="ng-binding">Bootstrap</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/unit-testing" class="ng-binding">Unit Testing</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/e2e-testing" class="ng-binding">E2E Testing</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/$location" class="ng-binding">Using $location</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/css-styling" class="ng-binding">Working With CSS</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/i18n" class="ng-binding">i18n and l10n</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/security" class="ng-binding">Security</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/accessibility" class="ng-binding">Accessibility</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/ie" class="ng-binding">Internet Explorer Compatibility</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/production" class="ng-binding">Running in Production</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems --><li ng-repeat="navItem in navGroup.navItems" ng-class="navClass(navItem)" class="nav-index-listing ng-scope active">
+                    <!-- ngIf: navItem.extra.href -->
+                    <a tabindex="2" ng-class="linkClass(navItem)" href="https://docs.angularjs.org/guide/migration" class="ng-binding">Migrating from Previous Versions</a>
+                  </li><!-- end ngRepeat: navItem in navGroup.navItems -->
+                </ul>
+              </li><!-- end ngRepeat: navGroup in currentArea.navGroups track by navGroup.name -->
+            </ul>
+            <a href="" ng-click="toc=false" class="toc-close visible-xs">
+              <span class="glyphicon glyphicon-remove toc-close-icon"></span> Close
+            </a>
+          </div>
+        </div>
+        <div class="grid-right">
+          <div id="loading" ng-show="loading" class="ng-hide">Loading...</div>
+          <!-- ngInclude: partialPath --><div ng-hide="loading" ng-include="partialPath" autoscroll="" class="ng-scope"><a href="https://github.com/angular/angular.js/edit/master/docs/content/guide/scope.ngdoc?message=docs(guide%2FScopes)%3A%20describe%20your%20change..." class="improve-docs btn btn-primary ng-scope"><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+
+
+<h1 id="what-are-scopes-" class="ng-scope">What are Scopes?</h1>
+<p class="ng-scope"><a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope">Scope</a> is an object that refers to the application
+model. It is an execution context for <a href="https://docs.angularjs.org/guide/expression">expressions</a>. Scopes are
+arranged in hierarchical structure which mimic the DOM structure of the application. Scopes can
+watch <a href="https://docs.angularjs.org/guide/expression">expressions</a> and propagate events.</p>
+<h2 id="scope-characteristics" class="ng-scope">Scope characteristics</h2>
+<ul class="ng-scope">
+<li><p>Scopes provide APIs (<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch</a>) to observe
+model mutations.</p>
+</li>
+<li><p>Scopes provide APIs (<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">$apply</a>) to
+propagate any model changes through the system into the view from outside of the "Angular
+realm" (controllers, services, Angular event handlers).</p>
+</li>
+<li><p>Scopes can be nested to limit access to the properties of application components while providing
+access to shared model properties. Nested scopes are either "child scopes" or "isolate scopes".
+A "child scope" (prototypically) inherits properties from its parent scope. An "isolate scope"
+does not. See <a href="https://docs.angularjs.org/guide/directive#isolating-the-scope-of-a-directive">isolated
+scopes</a> for more information.</p>
+</li>
+<li><p>Scopes provide context against which <a href="https://docs.angularjs.org/guide/expression">expressions</a> are evaluated. For
+example <code><span class="pun">{{</span><span class="pln">username</span><span class="pun">}}</span></code> expression is meaningless, unless it is evaluated against a specific
+scope which defines the <code><span class="pln">username</span></code> property.</p>
+</li>
+</ul>
+<h2 id="scope-as-data-model" class="ng-scope">Scope as Data-Model</h2>
+<p class="ng-scope">Scope is the glue between application controller and the view. During the template <a href="https://docs.angularjs.org/guide/compiler">linking</a> phase the <a href="https://docs.angularjs.org/api/ng/provider/$compileProvider#directive">directives</a> set up
+<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch"><code><span class="pln">$watch</span></code></a> expressions on the scope. The
+<code><span class="pln">$watch</span></code> allows the directives to be notified of property changes, which allows the directive to
+render the updated value to the DOM.</p>
+<p class="ng-scope">Both controllers and directives have reference to the scope, but not to each other. This
+arrangement isolates the controller from the directive as well as from the DOM. This is an important
+point since it makes the controllers view agnostic, which greatly improves the testing story of
+the applications.</p>
+<p class="ng-scope">
+
+</p><div class="ng-scope">
+  <plnkr-opener example-path="examples/example-example43" class="ng-isolate-scope"><button ng-click="plnkr.open($event)" class="btn pull-right"> <i class="glyphicon glyphicon-edit">&nbsp;</i> Edit in Plunker</button> </plnkr-opener>
+
+  <div class="runnable-example ng-scope" path="examples/example-example43" module="scopeExample"><!-- ngIf: tabs --><nav class="runnable-example-tabs ng-scope" ng-if="tabs">  <!-- ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope active" ng-click="setTab($index)">    script.js  </a><!-- end ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope" ng-click="setTab($index)">    index.html  </a><!-- end ngRepeat: tab in tabs track by $index --></nav><!-- end ngIf: tabs -->
+
+  
+    <div class="runnable-example-file" name="script.js" language="js" type="js" style="display: block;">
+      <pre><code><span class="pln">angular</span><span class="pun">.</span><span class="kwd">module</span><span class="pun">(</span><span class="str">'scopeExample'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">controller</span><span class="pun">(</span><span class="str">'MyController'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[</span><span class="str">'$scope'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">$scope</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  $scope</span><span class="pun">.</span><span class="pln">username </span><span class="pun">=</span><span class="pln"> </span><span class="str">'World'</span><span class="pun">;</span><span class="pln">
+
+  $scope</span><span class="pun">.</span><span class="pln">sayHello </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $scope</span><span class="pun">.</span><span class="pln">greeting </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Hello '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> $scope</span><span class="pun">.</span><span class="pln">username </span><span class="pun">+</span><span class="pln"> </span><span class="str">'!'</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">};</span><span class="pln">
+</span><span class="pun">}]);</span></code></pre>
+    </div>
+  
+    <div class="runnable-example-file" name="index.html" language="html" type="html" style="display: none;">
+      <pre><code><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">ng-controller</span><span class="pun">=</span><span class="atv">"MyController"</span><span class="tag">&gt;</span><span class="pln">
+  Your name:
+    </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">ng-model</span><span class="pun">=</span><span class="atv">"username"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">ng-click</span><span class="pun">=</span><span class="atv">'sayHello()'</span><span class="tag">&gt;</span><span class="pln">greet</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+  </span><span class="tag">&lt;hr&gt;</span><span class="pln">
+  {{greeting}}
+</span><span class="tag">&lt;/div&gt;</span></code></pre>
+    </div>
+  
+
+    <iframe class="runnable-example-frame" src="./AngularJS_ Developer Guide_ Scopes_files/index.html" name="example-example43"></iframe>
+  </div>
+</div>
+
+
+<p class="ng-scope"></p>
+<p class="ng-scope">In the above example notice that the <code><span class="typ">MyController</span></code> assigns <code><span class="typ">World</span></code> to the <code><span class="pln">username</span></code> property of
+the scope. The scope then notifies the <code><span class="pln">input</span></code> of the assignment, which then renders the input
+with username pre-filled. This demonstrates how a controller can write data into the scope.</p>
+<p class="ng-scope">Similarly the controller can assign behavior to scope as seen by the <code><span class="pln">sayHello</span></code> method, which is
+invoked when the user clicks on the 'greet' button. The <code><span class="pln">sayHello</span></code> method can read the <code><span class="pln">username</span></code>
+property and create a <code><span class="pln">greeting</span></code> property. This demonstrates that the properties on scope update
+automatically when they are bound to HTML input widgets.</p>
+<p class="ng-scope">Logically the rendering of <code><span class="pun">{{</span><span class="pln">greeting</span><span class="pun">}}</span></code> involves:</p>
+<ul class="ng-scope">
+<li><p>retrieval of the scope associated with DOM node where <code><span class="pun">{{</span><span class="pln">greeting</span><span class="pun">}}</span></code> is defined in template.
+In this example this is the same scope as the scope which was passed into <code><span class="typ">MyController</span></code>. (We
+will discuss scope hierarchies later.)</p>
+</li>
+<li><p>Evaluate the <code><span class="pln">greeting</span></code> <a href="https://docs.angularjs.org/guide/expression">expression</a> against the scope retrieved above,
+and assign the result to the text of the enclosing DOM element.</p>
+</li>
+</ul>
+<p class="ng-scope">You can think of the scope and its properties as the data which is used to render the view. The
+scope is the single source-of-truth for all things view related.</p>
+<p class="ng-scope">From a testability point of view, the separation of the controller and the view is desirable, because it allows us
+to test the behavior without being distracted by the rendering details.</p>
+<pre class="ng-scope"><code class="lang-js"><span class="pln">it</span><span class="pun">(</span><span class="str">'should say hello'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> scopeMock </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{};</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> cntl </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">MyController</span><span class="pun">(</span><span class="pln">scopeMock</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="com">// Assert that username is pre-filled</span><span class="pln">
+  expect</span><span class="pun">(</span><span class="pln">scopeMock</span><span class="pun">.</span><span class="pln">username</span><span class="pun">).</span><span class="pln">toEqual</span><span class="pun">(</span><span class="str">'World'</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="com">// Assert that we read new username and greet</span><span class="pln">
+  scopeMock</span><span class="pun">.</span><span class="pln">username </span><span class="pun">=</span><span class="pln"> </span><span class="str">'angular'</span><span class="pun">;</span><span class="pln">
+  scopeMock</span><span class="pun">.</span><span class="pln">sayHello</span><span class="pun">();</span><span class="pln">
+  expect</span><span class="pun">(</span><span class="pln">scopeMock</span><span class="pun">.</span><span class="pln">greeting</span><span class="pun">).</span><span class="pln">toEqual</span><span class="pun">(</span><span class="str">'Hello angular!'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">});</span></code></pre>
+<h2 id="scope-hierarchies" class="ng-scope">Scope Hierarchies</h2>
+<p class="ng-scope">Each Angular application has exactly one <a href="https://docs.angularjs.org/api/ng/service/$rootScope">root scope</a>, but
+may have several child scopes.</p>
+<p class="ng-scope">The application can have multiple scopes, because some <a href="https://docs.angularjs.org/guide/directive">directives</a> create
+new child scopes (refer to directive documentation to see which directives create new scopes).
+When new scopes are created, they are added as children of their parent scope. This creates a tree
+structure which parallels the DOM where they're attached.</p>
+<p class="ng-scope">When Angular evaluates <code><span class="pun">{{</span><span class="pln">name</span><span class="pun">}}</span></code>, it first looks at the scope associated with the given
+element for the <code><span class="pln">name</span></code> property. If no such property is found, it searches the parent scope
+and so on until the root scope is reached. In JavaScript this behavior is known as prototypical
+inheritance, and child scopes prototypically inherit from their parents.</p>
+<p class="ng-scope">This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by
+a diagram depicting the scope boundaries.</p>
+<p class="ng-scope">
+
+</p><div class="ng-scope">
+  <plnkr-opener example-path="examples/example-example44" class="ng-isolate-scope"><button ng-click="plnkr.open($event)" class="btn pull-right"> <i class="glyphicon glyphicon-edit">&nbsp;</i> Edit in Plunker</button> </plnkr-opener>
+
+  <div class="runnable-example ng-scope" path="examples/example-example44" module="scopeExample"><!-- ngIf: tabs --><nav class="runnable-example-tabs ng-scope" ng-if="tabs">  <!-- ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope active" ng-click="setTab($index)">    index.html  </a><!-- end ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope" ng-click="setTab($index)">    script.js  </a><!-- end ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope" ng-click="setTab($index)">    style.css  </a><!-- end ngRepeat: tab in tabs track by $index --></nav><!-- end ngIf: tabs -->
+
+  
+    <div class="runnable-example-file" name="index.html" language="html" type="html" style="display: block;">
+      <pre><code><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"show-scope-demo"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">ng-controller</span><span class="pun">=</span><span class="atv">"GreetController"</span><span class="tag">&gt;</span><span class="pln">
+    Hello {{name}}!
+  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">ng-controller</span><span class="pun">=</span><span class="atv">"ListController"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;ol&gt;</span><span class="pln">
+      </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">ng-repeat</span><span class="pun">=</span><span class="atv">"name in names"</span><span class="tag">&gt;</span><span class="pln">{{name}} from {{department}}</span><span class="tag">&lt;/li&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/ol&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+</span><span class="tag">&lt;/div&gt;</span></code></pre>
+    </div>
+  
+    <div class="runnable-example-file" name="script.js" language="js" type="js" style="display: none;">
+      <pre><code><span class="pln">angular</span><span class="pun">.</span><span class="kwd">module</span><span class="pun">(</span><span class="str">'scopeExample'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">controller</span><span class="pun">(</span><span class="str">'GreetController'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[</span><span class="str">'$scope'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'$rootScope'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">$scope</span><span class="pun">,</span><span class="pln"> $rootScope</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  $scope</span><span class="pun">.</span><span class="pln">name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'World'</span><span class="pun">;</span><span class="pln">
+  $rootScope</span><span class="pun">.</span><span class="pln">department </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Angular'</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}])</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">controller</span><span class="pun">(</span><span class="str">'ListController'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[</span><span class="str">'$scope'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">$scope</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  $scope</span><span class="pun">.</span><span class="pln">names </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">'Igor'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'Misko'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'Vojta'</span><span class="pun">];</span><span class="pln">
+</span><span class="pun">}]);</span></code></pre>
+    </div>
+  
+    <div class="runnable-example-file" name="style.css" language="css" type="css" style="display: none;">
+      <pre><code><span class="pun">.</span><span class="pln">show</span><span class="pun">-</span><span class="pln">scope</span><span class="pun">-</span><span class="pln">demo</span><span class="pun">.</span><span class="pln">ng</span><span class="pun">-</span><span class="pln">scope</span><span class="pun">,</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">show</span><span class="pun">-</span><span class="pln">scope</span><span class="pun">-</span><span class="pln">demo </span><span class="pun">.</span><span class="pln">ng</span><span class="pun">-</span><span class="pln">scope  </span><span class="pun">{</span><span class="pln">
+  border</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1px</span><span class="pln"> solid red</span><span class="pun">;</span><span class="pln">
+  margin</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3px</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+    </div>
+  
+
+    <iframe class="runnable-example-frame" src="./AngularJS_ Developer Guide_ Scopes_files/index(1).html" name="example-example44"></iframe>
+  </div>
+</div>
+
+
+<p class="ng-scope"></p>
+<p class="ng-scope"><img class="center" src="./AngularJS_ Developer Guide_ Scopes_files/concepts-scope.png"></p>
+<p class="ng-scope">Notice that Angular automatically places <code><span class="pln">ng</span><span class="pun">-</span><span class="pln">scope</span></code> class on elements where scopes are
+attached. The <code><span class="tag">&lt;style&gt;</span></code> definition in this example highlights in red the new scope locations. The
+child scopes are necessary because the repeater evaluates <code><span class="pun">{{</span><span class="pln">name</span><span class="pun">}}</span></code> expression, but
+depending on which scope the expression is evaluated it produces different result. Similarly the
+evaluation of <code><span class="pun">{{</span><span class="pln">department</span><span class="pun">}}</span></code> prototypically inherits from root scope, as it is the only place
+where the <code><span class="pln">department</span></code> property is defined.</p>
+<h2 id="retrieving-scopes-from-the-dom-" class="ng-scope">Retrieving Scopes from the DOM.</h2>
+<p class="ng-scope">Scopes are attached to the DOM as <code><span class="pln">$scope</span></code> data property, and can be retrieved for debugging
+purposes. (It is unlikely that one would need to retrieve scopes in this way inside the
+application.) The location where the root scope is attached to the DOM is defined by the location
+of <a href="https://docs.angularjs.org/api/ng/directive/ngApp"><code><span class="pln">ng</span><span class="pun">-</span><span class="pln">app</span></code></a> directive. Typically
+<code><span class="pln">ng</span><span class="pun">-</span><span class="pln">app</span></code> is placed on the <code><span class="tag">&lt;html&gt;</span></code> element, but it can be placed on other elements as well, if,
+for example, only a portion of the view needs to be controlled by Angular.</p>
+<p class="ng-scope">To examine the scope in the debugger:</p>
+<ol class="ng-scope">
+<li><p>Right click on the element of interest in your browser and select 'inspect element'. You
+should see the browser debugger with the element you clicked on highlighted.</p>
+</li>
+<li><p>The debugger allows you to access the currently selected element in the console as <code><span class="pln">$0</span></code>
+variable.</p>
+</li>
+<li><p>To retrieve the associated scope in console execute: <code><span class="pln">angular</span><span class="pun">.</span><span class="pln">element</span><span class="pun">(</span><span class="pln">$0</span><span class="pun">).</span><span class="pln">scope</span><span class="pun">()</span></code> or just type $scope</p>
+</li>
+</ol>
+<h2 id="scope-events-propagation" class="ng-scope">Scope Events Propagation</h2>
+<p class="ng-scope">Scopes can propagate events in similar fashion to DOM events. The event can be <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$broadcast">broadcasted</a> to the scope children or <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit">emitted</a> to scope parents.</p>
+<p class="ng-scope">
+
+</p><div class="ng-scope">
+  <plnkr-opener example-path="examples/example-example45" class="ng-isolate-scope"><button ng-click="plnkr.open($event)" class="btn pull-right"> <i class="glyphicon glyphicon-edit">&nbsp;</i> Edit in Plunker</button> </plnkr-opener>
+
+  <div class="runnable-example ng-scope" path="examples/example-example45" module="eventExample"><!-- ngIf: tabs --><nav class="runnable-example-tabs ng-scope" ng-if="tabs">  <!-- ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope active" ng-click="setTab($index)">    script.js  </a><!-- end ngRepeat: tab in tabs track by $index --><a ng-class="{active:$index==activeTabIndex}" ng-repeat="tab in tabs track by $index" href="" class="btn ng-binding ng-scope" ng-click="setTab($index)">    index.html  </a><!-- end ngRepeat: tab in tabs track by $index --></nav><!-- end ngIf: tabs -->
+
+  
+    <div class="runnable-example-file" name="script.js" language="js" type="js" style="display: block;">
+      <pre><code><span class="pln">angular</span><span class="pun">.</span><span class="kwd">module</span><span class="pun">(</span><span class="str">'eventExample'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">.</span><span class="pln">controller</span><span class="pun">(</span><span class="str">'EventController'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[</span><span class="str">'$scope'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">$scope</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  $scope</span><span class="pun">.</span><span class="pln">count </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+  $scope</span><span class="pun">.</span><span class="pln">$on</span><span class="pun">(</span><span class="str">'MyEvent'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    $scope</span><span class="pun">.</span><span class="pln">count</span><span class="pun">++;</span><span class="pln">
+  </span><span class="pun">});</span><span class="pln">
+</span><span class="pun">}]);</span></code></pre>
+    </div>
+  
+    <div class="runnable-example-file" name="index.html" language="html" type="html" style="display: none;">
+      <pre><code><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">ng-controller</span><span class="pun">=</span><span class="atv">"EventController"</span><span class="tag">&gt;</span><span class="pln">
+  Root scope </span><span class="tag">&lt;tt&gt;</span><span class="pln">MyEvent</span><span class="tag">&lt;/tt&gt;</span><span class="pln"> count: {{count}}
+  </span><span class="tag">&lt;ul&gt;</span><span class="pln">
+    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">ng-repeat</span><span class="pun">=</span><span class="atv">"i in [1]"</span><span class="pln"> </span><span class="atn">ng-controller</span><span class="pun">=</span><span class="atv">"EventController"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">ng-click</span><span class="pun">=</span><span class="atv">"$emit('MyEvent')"</span><span class="tag">&gt;</span><span class="pln">$emit('MyEvent')</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+      </span><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">ng-click</span><span class="pun">=</span><span class="atv">"$broadcast('MyEvent')"</span><span class="tag">&gt;</span><span class="pln">$broadcast('MyEvent')</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+      </span><span class="tag">&lt;br&gt;</span><span class="pln">
+      Middle scope </span><span class="tag">&lt;tt&gt;</span><span class="pln">MyEvent</span><span class="tag">&lt;/tt&gt;</span><span class="pln"> count: {{count}}
+      </span><span class="tag">&lt;ul&gt;</span><span class="pln">
+        </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">ng-repeat</span><span class="pun">=</span><span class="atv">"item in [1, 2]"</span><span class="pln"> </span><span class="atn">ng-controller</span><span class="pun">=</span><span class="atv">"EventController"</span><span class="tag">&gt;</span><span class="pln">
+          Leaf scope </span><span class="tag">&lt;tt&gt;</span><span class="pln">MyEvent</span><span class="tag">&lt;/tt&gt;</span><span class="pln"> count: {{count}}
+        </span><span class="tag">&lt;/li&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/ul&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/li&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/ul&gt;</span><span class="pln">
+</span><span class="tag">&lt;/div&gt;</span></code></pre>
+    </div>
+  
+
+    <iframe class="runnable-example-frame" src="./AngularJS_ Developer Guide_ Scopes_files/index(2).html" name="example-example45"></iframe>
+  </div>
+</div>
+
+
+<p class="ng-scope"></p>
+<h2 id="scope-life-cycle" class="ng-scope">Scope Life Cycle</h2>
+<p class="ng-scope">The normal flow of a browser receiving an event is that it executes a corresponding JavaScript
+callback. Once the callback completes the browser re-renders the DOM and returns to waiting for
+more events.</p>
+<p class="ng-scope">When the browser calls into JavaScript the code executes outside the Angular execution context,
+which means that Angular is unaware of model modifications. To properly process model
+modifications the execution has to enter the Angular execution context using the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply"><code><span class="pln">$apply</span></code></a> method. Only model modifications which
+execute inside the <code><span class="pln">$apply</span></code> method will be properly accounted for by Angular. For example if a
+directive listens on DOM events, such as <a href="https://docs.angularjs.org/api/ng/directive/ngClick"><code><span class="pln">ng</span><span class="pun">-</span><span class="pln">click</span></code></a> it must evaluate the
+expression inside the <code><span class="pln">$apply</span></code> method.</p>
+<p class="ng-scope">After evaluating the expression, the <code><span class="pln">$apply</span></code> method performs a <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest"><code><span class="pln">$digest</span></code></a>. In the $digest phase the scope examines all
+of the <code><span class="pln">$watch</span></code> expressions and compares them with the previous value. This dirty checking is done
+asynchronously. This means that assignment such as <code><span class="pln">$scope</span><span class="pun">.</span><span class="pln">username</span><span class="pun">=</span><span class="str">"angular"</span></code> will not
+immediately cause a <code><span class="pln">$watch</span></code> to be notified, instead the <code><span class="pln">$watch</span></code> notification is delayed until
+the <code><span class="pln">$digest</span></code> phase. This delay is desirable, since it coalesces multiple model updates into one
+<code><span class="pln">$watch</span></code> notification as well as guarantees that during the <code><span class="pln">$watch</span></code> notification no other
+<code><span class="pln">$watch</span></code>es are running. If a <code><span class="pln">$watch</span></code> changes the value of the model, it will force additional
+<code><span class="pln">$digest</span></code> cycle.</p>
+<ol class="ng-scope">
+<li><p><strong>Creation</strong></p>
+<p>The <a href="https://docs.angularjs.org/api/ng/service/$rootScope">root scope</a> is created during the application
+bootstrap by the <a href="https://docs.angularjs.org/api/auto/service/$injector">$injector</a>. During template
+linking, some directives create new child scopes.</p>
+</li>
+<li><p><strong>Watcher registration</strong></p>
+<p>During template linking directives register <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">watches</a> on the scope. These watches will be
+used to propagate model values to the DOM.</p>
+</li>
+<li><p><strong>Model mutation</strong></p>
+<p>For mutations to be properly observed, you should make them only within the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">scope.$apply()</a>. Angular APIs do this
+implicitly, so no extra <code><span class="pln">$apply</span></code> call is needed when doing synchronous work in controllers,
+or asynchronous work with <a href="https://docs.angularjs.org/api/ng/service/$http">$http</a>, <a href="https://docs.angularjs.org/api/ng/service/$timeout">$timeout</a>
+or <a href="https://docs.angularjs.org/api/ng/service/$interval">$interval</a> services.</p>
+</li>
+<li><p><strong>Mutation observation</strong></p>
+<p>At the end of <code><span class="pln">$apply</span></code>, Angular performs a <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a> cycle on the root scope, which then propagates throughout all child scopes. During
+the <code><span class="pln">$digest</span></code> cycle, all <code><span class="pln">$watch</span></code>ed expressions or functions are checked for model mutation
+and if a mutation is detected, the <code><span class="pln">$watch</span></code> listener is called.</p>
+</li>
+<li><p><strong>Scope destruction</strong></p>
+<p>When child scopes are no longer needed, it is the responsibility of the child scope creator
+to destroy them via <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$destroy">scope.$destroy()</a>
+API. This will stop propagation of <code><span class="pln">$digest</span></code> calls into the child scope and allow for memory
+used by the child scope models to be reclaimed by the garbage collector.</p>
+</li>
+</ol>
+<h3 id="scopes-and-directives" class="ng-scope">Scopes and Directives</h3>
+<p class="ng-scope">During the compilation phase, the <a href="https://docs.angularjs.org/guide/compiler">compiler</a> matches <a href="https://docs.angularjs.org/api/ng/provider/$compileProvider#directive">directives</a> against the DOM template. The directives
+usually fall into one of two categories:</p>
+<ul class="ng-scope">
+<li><p>Observing <a href="https://docs.angularjs.org/api/ng/provider/$compileProvider#directive">directives</a>, such as
+double-curly expressions <code><span class="pun">{{</span><span class="pln">expression</span><span class="pun">}}</span></code>, register listeners using the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch()</a> method. This type of directive needs
+to be notified whenever the expression changes so that it can update the view.</p>
+</li>
+<li><p>Listener directives, such as <a href="https://docs.angularjs.org/api/ng/directive/ngClick">ng-click</a>, register a listener with the DOM. When the DOM listener fires, the directive
+executes the associated expression and updates the view using the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">$apply()</a> method.</p>
+</li>
+</ul>
+<p class="ng-scope">When an external event (such as a user action, timer or XHR) is received, the associated <a href="https://docs.angularjs.org/guide/expression">expression</a> must be applied to the scope through the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">$apply()</a> method so that all listeners are updated
+correctly.</p>
+<h3 id="directives-that-create-scopes" class="ng-scope">Directives that Create Scopes</h3>
+<p class="ng-scope">In most cases, <a href="https://docs.angularjs.org/api/ng/provider/$compileProvider#directive">directives</a> and scopes interact
+but do not create new instances of scope. However, some directives, such as <a href="https://docs.angularjs.org/api/ng/directive/ngController">ng-controller</a> and <a href="https://docs.angularjs.org/api/ng/directive/ngRepeat">ng-repeat</a>, create new child scopes
+and attach the child scope to the corresponding DOM element. You can retrieve a scope for any DOM
+element by using an <code><span class="pln">angular</span><span class="pun">.</span><span class="pln">element</span><span class="pun">(</span><span class="pln">aDomElement</span><span class="pun">).</span><span class="pln">scope</span><span class="pun">()</span></code> method call.
+See the <a href="https://docs.angularjs.org/guide/directive#isolating-the-scope-of-a-directive">directives guide</a> for more information about isolate scopes.</p>
+<h3 id="controllers-and-scopes" class="ng-scope">Controllers and Scopes</h3>
+<p class="ng-scope">Scopes and controllers interact with each other in the following situations:</p>
+<ul class="ng-scope">
+<li><p>Controllers use scopes to expose controller methods to templates (see <a href="https://docs.angularjs.org/api/ng/directive/ngController">ng-controller</a>).</p>
+</li>
+<li><p>Controllers define methods (behavior) that can mutate the model (properties on the scope).</p>
+</li>
+<li><p>Controllers may register <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">watches</a> on
+the model. These watches execute immediately after the controller behavior executes.</p>
+</li>
+</ul>
+<p class="ng-scope">See the <a href="https://docs.angularjs.org/api/ng/directive/ngController">ng-controller</a> for more
+information.</p>
+<h3 id="scope-watch-performance-considerations" class="ng-scope">Scope <code><span class="pln">$watch</span></code> Performance Considerations</h3>
+<p class="ng-scope">Dirty checking the scope for property changes is a common operation in Angular and for this reason
+the dirty checking function must be efficient. Care should be taken that the dirty checking
+function does not do any DOM access, as DOM access is orders of magnitude slower than property
+access on JavaScript object.</p>
+<h3 id="scope-watch-depths" class="ng-scope">Scope <code><span class="pln">$watch</span></code> Depths</h3>
+<p class="ng-scope"><img class="pull-right" style="padding-left: 3em; padding-bottom: 1em;" src="./AngularJS_ Developer Guide_ Scopes_files/concepts-scope-watch-strategies.png"></p>
+<p class="ng-scope">Dirty checking can be done with three strategies: By reference, by collection contents, and by value. The strategies differ in the kinds of changes they detect, and in their performance characteristics.</p>
+<ul class="ng-scope">
+<li>Watching <em>by reference</em> (<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">scope.$watch</a> <code><span class="pun">(</span><span class="pln">watchExpression</span><span class="pun">,</span><span class="pln"> listener</span><span class="pun">)</span></code>) detects a change when the whole value returned by the watch expression switches to a new value. If the value is an array or an object, changes inside it are not detected. This is the most efficient strategy.</li>
+<li>Watching <em>collection contents</em> (<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watchCollection">scope.$watchCollection</a> <code><span class="pun">(</span><span class="pln">watchExpression</span><span class="pun">,</span><span class="pln"> listener</span><span class="pun">)</span></code>) detects changes that occur inside an array or an object: When items are added, removed, or reordered. The detection is shallow - it does not reach into nested collections. Watching collection contents is more expensive than watching by reference, because copies of the collection contents need to be maintained. However, the strategy attempts to minimize the amount of copying required.</li>
+<li>Watching <em>by value</em> (<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">scope.$watch</a> <code><span class="pun">(</span><span class="pln">watchExpression</span><span class="pun">,</span><span class="pln"> listener</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">)</span></code>) detects any change in an arbitrarily nested data structure. It is the most powerful change detection strategy, but also the most expensive. A full traversal of the nested data structure is needed on each digest, and a full copy of it needs to be held in memory.</li>
+</ul>
+<h2 id="integration-with-the-browser-event-loop" class="ng-scope">Integration with the browser event loop</h2>
+<p class="ng-scope"><img class="pull-right" style="padding-left: 3em; padding-bottom: 1em;" src="./AngularJS_ Developer Guide_ Scopes_files/concepts-runtime.png"></p>
+<p class="ng-scope">The diagram and the example below describe how Angular interacts with the browser's event loop.</p>
+<ol class="ng-scope">
+<li>The browser's event-loop waits for an event to arrive. An event is a user interaction, timer event,
+or network event (response from a server).</li>
+<li>The event's callback gets executed. This enters the JavaScript context. The callback can
+ modify the DOM structure.</li>
+<li>Once the callback executes, the browser leaves the JavaScript context and
+re-renders the view based on DOM changes.</li>
+</ol>
+<p class="ng-scope">Angular modifies the normal JavaScript flow by providing its own event processing loop. This
+splits the JavaScript into classical and Angular execution context. Only operations which are
+applied in the Angular execution context will benefit from Angular data-binding, exception handling,
+property watching, etc... You can also use $apply() to enter the Angular execution context from JavaScript. Keep in
+mind that in most places (controllers, services) $apply has already been called for you by the
+directive which is handling the event. An explicit call to $apply is needed only when
+implementing custom event callbacks, or when working with third-party library callbacks.</p>
+<ol class="ng-scope">
+<li>Enter the Angular execution context by calling <a href="https://docs.angularjs.org/guide/scope">scope</a><code><span class="pun">.</span></code><a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">$apply</a><code><span class="pun">(</span><span class="pln">stimulusFn</span><span class="pun">)</span></code>, where <code><span class="pln">stimulusFn</span></code> is
+the work you wish to do in the Angular execution context.</li>
+<li>Angular executes the <code><span class="pln">stimulusFn</span><span class="pun">()</span></code>, which typically modifies application state.</li>
+<li>Angular enters the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a> loop. The
+loop is made up of two smaller loops which process <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$evalAsync">$evalAsync</a> queue and the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch</a> list. The <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a> loop keeps iterating until the model
+stabilizes, which means that the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$evalAsync">$evalAsync</a> queue is empty and the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch</a> list does not detect any changes.</li>
+<li>The <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$evalAsync">$evalAsync</a> queue is used to
+schedule work which needs to occur outside of current stack frame, but before the browser's
+view render. This is usually done with <code><span class="pln">setTimeout</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span></code>, but the <code><span class="pln">setTimeout</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span></code> approach
+suffers from slowness and may cause view flickering since the browser renders the view after
+each event.</li>
+<li>The <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch</a> list is a set of expressions
+which may have changed since last iteration. If a change is detected then the <code><span class="pln">$watch</span></code>
+function is called which typically updates the DOM with the new value.</li>
+<li>Once the Angular <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a> loop finishes, 
+the execution leaves the Angular and JavaScript context. This is followed by the browser
+re-rendering the DOM to reflect any changes.</li>
+</ol>
+<p class="ng-scope">Here is the explanation of how the <code><span class="typ">Hello</span><span class="pln"> world</span></code> example achieves the data-binding effect when the
+user enters text into the text field.</p>
+<ol class="ng-scope">
+<li>During the compilation phase:<ol>
+<li>the <a href="https://docs.angularjs.org/api/ng/directive/ngModel">ng-model</a> and <a href="https://docs.angularjs.org/api/ng/directive/input">input</a> <a href="https://docs.angularjs.org/guide/directive">directive</a> set up a <code><span class="pln">keydown</span></code> listener on the <code><span class="tag">&lt;input&gt;</span></code> control.</li>
+<li>the <a href="https://docs.angularjs.org/api/ng/service/$interpolate">interpolation</a>
+sets up a <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch</a> to be notified of
+<code><span class="pln">name</span></code> changes.</li>
+</ol>
+</li>
+<li>During the runtime phase:<ol>
+<li>Pressing an '<code><span class="pln">X</span></code>' key causes the browser to emit a <code><span class="pln">keydown</span></code> event on the input control.</li>
+<li>The <a href="https://docs.angularjs.org/api/ng/directive/input">input</a> directive
+captures the change to the input's value and calls <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">$apply</a><code><span class="pun">(</span><span class="str">"name = 'X';"</span><span class="pun">)</span></code> to update the
+application model inside the Angular execution context.</li>
+<li>Angular applies the <code><span class="pln">name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'X'</span><span class="pun">;</span></code> to the model.</li>
+<li>The <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a> loop begins</li>
+<li>The <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch">$watch</a> list detects a change
+on the <code><span class="pln">name</span></code> property and notifies the <a href="https://docs.angularjs.org/api/ng/service/$interpolate">interpolation</a>,
+which in turn updates the DOM.</li>
+<li>Angular exits the execution context, which in turn exits the <code><span class="pln">keydown</span></code> event and with it
+the JavaScript execution context.</li>
+<li>The browser re-renders the view with the updated text.</li>
+</ol>
+</li>
+</ol>
+
+
+</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a back-to-top="">Back to top</a></p>
+
+        <p>
+          Super-powered by Google  ©2010-2016
+          ( <a id="version" ng-href="https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1.5.0" ng-bind-template="v1.5.0  ennoblement-facilitation" title="Changelog of this version of Angular JS" class="ng-binding" href="https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1.5.0">v1.5.0  ennoblement-facilitation</a>
+          )
+        </p>
+        <p>
+          Code licensed under the
+          <a href="https://github.com/angular/angular.js/blob/master/LICENSE" target="_blank">The
+            MIT License</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+
+</body></html>

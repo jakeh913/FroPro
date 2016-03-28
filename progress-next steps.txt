@@ -1,0 +1,29 @@
+Next steps in FP App:
+DONE - Load data / style data to main page -- troublshoot DB <-> Server connection (must be online?)
+	NOTES: 	- Not sure why .factory didn't work for postingService. 
+			- Use 127.0.0.1 instead of localhost to prevent connectivity issues while offline
+DONE - Integrate Bower to manage download front-end JS/CSS/supporting files, keep dependencies updated.
+DONE - Use Gulp to concatenate Bower files (separate from ng front end files)
+DONE - Use bookmarked example to set up bower to be more efficient. Put js files in script tags at bottom of page. Override project bower.json for TinyMCE main files.
+DONE (already effective, but not yet verified)- Link to customBootstrap.css stylesheet to override default Bootstrap styles.
+DONE - Create post submission partial connected to service to post new jobs to DB. HOW TO HANDLE PROMISE OBJECT??!!
+	DONE - Create Modal to Confirm Successful Post to Jobs DB
+    DONE- Integrate Google geolocate into post submission service. 
+		DONE- Reverse geocode $scope in Modal window to populate DB with lat/lng.
+		DONE- Look at TypeAhead locations from AngularUI Bootstrap
+	DONE - Set up controller for this page.
+		DONE - Post to DB
+		DONE - Populate $scope.variable for preview
+	DONE - Insert HTML for Preview below form to submit post
+
+DONE - Load data into map
+- Create controller/services for filters & update display on map & in accordion
+- Authentication
+- Employer registration/login (Use AngularUI Modal directive)
+- Work on employer dashboard partial
+	- Delete, edit posts
+- LinkedIn API integration/maybe a partial for registered users. (Use AngularUI Modal directive)
+- Investigate email functionality (e.g., digest) from Node server
+- AngularUI Collapsible Menu (like bootstrap/jquery functionality)
+- Maybe worth looking at angular-ui-router rather than ngRoute.
+

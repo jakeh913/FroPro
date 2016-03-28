@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="/main/bootstrap-css-only/css/bootstrap.css">
+	<link rel="stylesheet" href="/main/leaflet/dist/leaflet.css">
+	<link rel="stylesheet" href="/main/leaflet.markercluster/dist/MarkerCluster.css">
+	<link rel="stylesheet" href="/main/leaflet.markercluster/dist/MarkerCluster.Default.css">
+	<link rel="stylesheet" href="/app.css" /> <!--This will override bootstrap and other styles because it loads last. Put most specific style here -->
+</head>
+<body ng-app="fp">
+	<div class="container-fluid" id="bodyDiv" >
+
+		<div ng-view></div>
+	</div> <!--page bootstrap container-->
+	<script src="/main/angular/angular.js"></script>
+	<script src="/main/angular-route/angular-route.js"></script>
+	<script src="/main/leaflet/dist/leaflet-src.js"></script>
+	<script src="/main/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+	<script src="/main/angular-animate/angular-animate.js"></script>
+	<script src="/main/angular-touch/angular-touch.js"></script>
+	<script src="/main/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="/main/tinymce-dist/tinymce.min.js"></script>
+	<script src="/main/angular-ui-tinymce/src/tinymce.js"></script>
+	<script src="/main/angular-sanitize/angular-sanitize.js"></script>
+	
+	<script src='ngApp.js'></script>
+
+
+</body>
+</html>

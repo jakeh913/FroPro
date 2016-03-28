@@ -1,0 +1,34 @@
+
+<div class="container" id="content div">
+	<div id="mapAndFiltersDiv">
+		<div id="map" class="col-sm-9">
+			<script type="text/javascript">
+				var map = L.map('map', {trackResize: true}).fitBounds([[35, -120],[55, -80]]);
+				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+					attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery ? <a href="http://mapbox.com">Mapbox</a>',
+					id: 'mapbox.streets',
+					accessToken: 'pk.eyJ1IjoiamFrZWg5MTMiLCJhIjoiY2loOXNjbGttMHU3N3Ywa2ljYjg4MmJsNyJ9.5Bk40zHBuVB2g2Ojf4aIAA'
+				}).addTo(map);
+				
+				map.on('resize', function(){
+					map.fitBounds([[35, -120],[55, -80]])//insert extent reset
+				});
+
+			</script>
+		</div> <!--Map ID div (map only) -->
+		<div id="filters" class="col-sm-3 well">
+			<table>
+			filters here
+			<br>
+			</table>
+		</div>
+	</div><!--end mapAndFiltersDiv Div -->
+	<h2>Forestry Job Postings</h2>
+	<div ng-controller="AccordionDemoCtrl">
+		<uib-accordion close-others=false template-url="template/accordion/accordion.html">
+			<uib-accordion-group heading="Insert ng-repeat directive to list jobs" template-url="template/accordion/accordion-group.html" >
+			 pull from jobs db "{{jobs.body}}" etc etc. (probably an ng-repeat directive)
+			</uib-accordion-group >
+		</uib-accordion>
+	</div><!--end Accordion template div -->
+</div> <!--content div -->

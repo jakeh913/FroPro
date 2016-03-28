@@ -1,0 +1,23 @@
+<navigation></navigation>
+<div class="container" id="content div">
+	<div id="mapAndFiltersDiv">
+		<div id="map" class="col-sm-9 well">
+		</div> <!--Map ID div (map only) -->
+		<div id="filters" class="col-sm-3 well">
+			<table>
+			filters here
+			<br>
+			</table>
+		</div>
+	</div><!--end mapAndFiltersDiv Div -->
+	<h2>{{pageTitle}}</h2>
+	<div></div>
+		<uib-accordion close-others=false template-url="template/accordion/accordion.html">
+			<uib-accordion-group heading="{{posting.title}}" ng-repeat="posting in postings" template-url="template/accordion/accordion-group.html" >
+				<h3>Title:</h3>{{posting.title}}
+				<h3>Location:</h3>{{posting.loc}}
+				<h3>Details:</h3><span ng-bind-html="posting.postingBody"></span>
+			</uib-accordion-group >
+		</uib-accordion>
+	</div><!--end Accordion template div -->
+</div> <!--content div -->
