@@ -3,7 +3,8 @@ var path = require('path');
 var logger = require('morgan')
 var bodyParser = require('body-parser');
 var passport = require('passport');
-//test git message to removed lateddfdr
+//test git message to removed lateddfd
+//this is my 2nd commit line
 // AUTH - Bring in the data model
 require('./authAPI/models/users');
 // AUTH Bring in the Passport config after model is defined
