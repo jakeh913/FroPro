@@ -9,13 +9,16 @@
 
       <form  class="form-horizontal">
         <div class="form-group">
-          <label class="col-sm-3 control-label">Full name</label>
-          <p class="form-control-static">{{ vm.user.name }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Email</label>
+          <label class="col-sm-3 control-label">You are logged in as:</label>
           <p class="form-control-static">{{ vm.user.email }}</p>
         </div>
+	<div class="filterPostingTable">
+	    
+		<ul>
+		    <li ng-repeat="posting in postings | filter:{userID: vm.user._id}:true">{{posting.loc}}{{posting.title}}</li>
+		</ul>
+	   
+	</div>
       </form>
 
     </div>

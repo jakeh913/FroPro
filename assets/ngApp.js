@@ -232,8 +232,8 @@ ngApp.directive('navigation', navigation);
   
 ngApp.controller('profileCtrl', profileCtrl);
 
-  profileCtrl.$inject = ['$location', 'meanData', '$scope'];
-  function profileCtrl($location, meanData, $scope) {
+  profileCtrl.$inject = ['$location', 'meanData', '$scope', 'postingService'];
+  function profileCtrl($location, meanData, $scope, postingService) {
     $scope.vm = this;
 
     $scope.vm.user = {};
@@ -247,6 +247,11 @@ ngApp.controller('profileCtrl', profileCtrl);
       .error(function (e) {
         console.log(e);
       });
+
+    postingService.postingFetch()
+	.then(function(response){
+	    return $scope.postings = response.data;
+	})
   }
 
 })();
@@ -323,6 +328,7 @@ ngApp.controller('MainCtrl', ['$scope', '$window', '$location', 'postingService'
         }
     ])
 ;
+
 ngApp.controller('NewPostingCtrl', function NewPostingCtrl($scope, $http) {
     $scope.data = {};
     $scope.getLocation = function(val) {
@@ -372,7 +378,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			locationLng: response.data.results[0].geometry.location.lng,
 			awaitingMod: 1,
 			postStatus: 1,
-			userPosted: r.email 
+			userPosted: r.email,
+			userID: r._id 
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
@@ -395,7 +402,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			locationLng: response.data.results[0].geometry.location.lng,
 			awaitingMod: 1,
 			postStatus: 1,
-			userPosted: "Not authenticated"
+			userPosted: "Not authenticated",
+			userID: r._id
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({

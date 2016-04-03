@@ -16,7 +16,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			locationLng: response.data.results[0].geometry.location.lng,
 			awaitingMod: 1,
 			postStatus: 1,
-			userPosted: r.email 
+			userPosted: r.email,
+			userID: r._id 
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
@@ -39,7 +40,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			locationLng: response.data.results[0].geometry.location.lng,
 			awaitingMod: 1,
 			postStatus: 1,
-			userPosted: "Not authenticated"
+			userPosted: "Not authenticated",
+			userID: r._id
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({

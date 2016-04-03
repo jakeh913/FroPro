@@ -2,8 +2,8 @@
   
 ngApp.controller('profileCtrl', profileCtrl);
 
-  profileCtrl.$inject = ['$location', 'meanData', '$scope'];
-  function profileCtrl($location, meanData, $scope) {
+  profileCtrl.$inject = ['$location', 'meanData', '$scope', 'postingService'];
+  function profileCtrl($location, meanData, $scope, postingService) {
     $scope.vm = this;
 
     $scope.vm.user = {};
@@ -17,6 +17,11 @@ ngApp.controller('profileCtrl', profileCtrl);
       .error(function (e) {
         console.log(e);
       });
+
+    postingService.postingFetch()
+	.then(function(response){
+	    return $scope.postings = response.data;
+	})
   }
 
 })();
