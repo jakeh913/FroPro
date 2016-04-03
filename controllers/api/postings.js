@@ -21,8 +21,9 @@ router.post('/', function (req, res, next) {
 		loc: req.body.loc,
 		locationLat: req.body.locationLat,
 		locationLng: req.body.locationLng,
-		awaitingMod: 1, 
-		postStatus: 0
+		awaitingMod: req.body.awaitingMod, 
+		postStatus: req.body.postStatus,
+		userPosted: req.body.userPosted
 	 });
 	 
     posting.save(function (err, posting) {
