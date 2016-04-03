@@ -14,9 +14,13 @@
         </div>
 	<div class="filterPostingTable">
 	    
-		<ul>
-		    <li ng-repeat="posting in postings | filter:{userID: vm.user._id}:true">{{posting.loc}}{{posting.title}}</li>
-		</ul>
+		<table>
+		    <tr ng-repeat="posting in postings | filter:{userID: vm.user._id}:true">
+			<td>{{posting.title}}</td>
+			<td><a href="#/editPosting/{{posting._id}}">Edit</a></td>
+			<td><a href="#/posting/{{posting._id}}">View</a></td>
+		    </tr>
+		</table>
 	   
 	</div>
       </form>

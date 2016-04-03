@@ -237,7 +237,6 @@ ngApp.controller('profileCtrl', profileCtrl);
     $scope.vm = this;
 
     $scope.vm.user = {};
-	console.log('made it here2!!')
 
     meanData.getProfile()
       .success(function(data) {
@@ -345,6 +344,16 @@ ngApp.controller('NewPostingCtrl', function NewPostingCtrl($scope, $http) {
     };
 });
 
+ngApp.controller('postingDetailCtrl', function($scope, postingService, $routeParams){
+    postingService.fetchSinglePosting($routeParams.id)
+    .success(function(response){
+	return $scope.postingDetail = response
+    })
+    .error(function(e){
+	console.log(e);
+    });
+});
+
 ngApp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
   //$scope.items = items;
@@ -403,7 +412,7 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			awaitingMod: 1,
 			postStatus: 1,
 			userPosted: "Not authenticated",
-			userID: r._id
+			userID: "None"
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
@@ -435,9 +444,13 @@ ngApp.service('postingService', function ($http) {
     this.postingFetch = function () {
         return $http.get('/api/postings');
     };
-	this.postingPost = function(post){
-		return $http.post('/api/postings', post)
-	}
+    this.postingPost = function(post){
+	return $http.post('/api/postings', post)
+    }
+    this.fetchSinglePosting = function(id){
+	return $http.get('/api/postings/' + id) 
+    }
+
 });
 
 ngApp.controller('AccordionDemoCtrl', function ($scope) {
@@ -484,6 +497,7 @@ ngApp.service('reverseGeocodingService', function ($http) {
   function config ($routeProvider, $locationProvider) {
     $routeProvider
 		.when('/', { controller: 'MainCtrl', templateUrl: 'frontPage.html' })
+		.when('/posting/:id', { controller: 'postingDetailCtrl', templateUrl: 'postingDetail.html' })
 		.when('/posting', { controller: 'NewPostingCtrl', templateUrl: 'newPosting.html'} )
 		.when('/register', { controller: 'registerCtrl', templateUrl: 'register.html'} )
 		.when('/login', { controller: 'loginCtrl', templateUrl: 'login.html'} )

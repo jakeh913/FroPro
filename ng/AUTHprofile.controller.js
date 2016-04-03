@@ -7,7 +7,6 @@ ngApp.controller('profileCtrl', profileCtrl);
     $scope.vm = this;
 
     $scope.vm.user = {};
-	console.log('made it here2!!')
 
     meanData.getProfile()
       .success(function(data) {

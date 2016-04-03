@@ -34,4 +34,17 @@ router.post('/', function (req, res, next) {
     });
 });
 
+//testing to see whether I can make link to single posting
+router.get('/:_id', function (req, res, next) { 
+    Posting.findOne({_id: req.params._id}, function(err, posting){
+	if(err){
+	    return res.send(err);
+	}
+    res.json(posting);
+    })
+})
+    
+
+
+
 module.exports = router

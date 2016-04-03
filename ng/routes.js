@@ -5,6 +5,7 @@
   function config ($routeProvider, $locationProvider) {
     $routeProvider
 		.when('/', { controller: 'MainCtrl', templateUrl: 'frontPage.html' })
+		.when('/posting/:id', { controller: 'postingDetailCtrl', templateUrl: 'postingDetail.html' })
 		.when('/posting', { controller: 'NewPostingCtrl', templateUrl: 'newPosting.html'} )
 		.when('/register', { controller: 'registerCtrl', templateUrl: 'register.html'} )
 		.when('/login', { controller: 'loginCtrl', templateUrl: 'login.html'} )
