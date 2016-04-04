@@ -26,4 +26,6 @@ DONE - Load data into map
 - Investigate email functionality (e.g., digest) from Node server
 - AngularUI Collapsible Menu (like bootstrap/jquery functionality)
 - Maybe worth looking at angular-ui-router rather than ngRoute.
-
+ 
+NOTES: April 4:
+    -Having trouble posting to authAPI/finalPostings from adminPostingEditDetail page because of 401 error. Issue appears to be related to missing front end service to get profile for page (data.service). I'm not sure on the mechanism, but the auth variable in authApi/routes/index.js is not working in finalPostings (but seems to be working in profile where there is more front-end 'action').

@@ -10,6 +10,7 @@
 		.when('/register', { controller: 'registerCtrl', templateUrl: 'register.html'} )
 		.when('/login', { controller: 'loginCtrl', templateUrl: 'login.html'} )
 		.when('/editPosting/:id', { controller: 'editPostingCtrl', templateUrl: 'editPosting.html'} )
+		.when('/adminEditPostingDetail/:id', { controller: 'adminEditPostingCtrl', templateUrl: 'adminPostingEdit.html'} )
 		.when('/profile', { controller: 'profileCtrl', templateUrl: 'profile.html'} )
 		.otherwise({redirectTo: '/'});
 

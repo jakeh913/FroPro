@@ -173,6 +173,7 @@ ngApp.service('authentication', authentication);
 
 
 })();
+
 (function () {
 
 ngApp.controller('loginCtrl', loginCtrl);
@@ -328,6 +329,78 @@ ngApp.controller('MainCtrl', ['$scope', '$window', '$location', 'postingService'
         }
     ])
 ;
+
+ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http) {
+	var revGeocodeAndPost = function(val, approval) {
+	    if (approval === 'approve'){var approve = 1; var postLive = 1}
+	    else if (approval === 'disprove'){var approve = 2; var postLive = 2}
+	    return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+		params: {
+		address: val,
+		sensor: false
+		}
+	    })
+	.then(function(response){
+		    postingService.publicPostingPost( {
+			title: $scope.adminPostingEditDetail.title,
+			postingBody: $scope.adminPostingEditDetail.postingBody,
+			loc: $scope.adminPostingEditDetail.loc,
+			locationLat: response.data.results[0].geometry.location.lat,
+			locationLng: response.data.results[0].geometry.location.lng,
+			awaitingMod: 0,
+			postStatus: postLive,
+			userPosted: 'publicly hidden',
+			userID: $scope.adminPostingEditDetail.userID,
+			jobUniqueID: $scope.adminPostingEditDetail.jobUniqueID,
+			version: $scope.adminPostingEditDetail.version
+		    })
+		    .success(function(response){
+			var modalInstance = $uibModal.open({
+			    templateUrl: '/adminEditPostingModalTemplate.html',
+			    controller: 'ModalInstanceCtrl'
+			});
+			return $location.path('/adminEditDash');
+		    })
+		    .error(function(e){
+			console.log("Error posting to Public Post DB:" + e);
+		    });
+		})
+	};
+
+$scope.animationsEnabled = true;
+$scope.approval = function (approval) {
+    revGeocodeAndPost($scope.adminPostingEditDetail.loc, approval);
+};
+
+});  
+
+  
+
+
+
+
+ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $routeParams, postingService, $http) {
+    postingService.fetchSinglePosting($routeParams.id)
+    .success(function(response){
+	return $scope.adminPostingEditDetail = response
+    })
+    .error(function(e){
+	console.log(e);
+    });
+
+    $scope.getLocation = function(val) {
+	return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+		params: {
+	 	address: val,
+		sensor: false
+	}
+	}).then(function(response){
+		return response.data.results.map(function(item){
+		    return item.formatted_address;						
+		});
+	});
+    };
+});
 
 ngApp.controller('editModalOpenCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http) {
 	var revGeocodeAndPost = function(val) {
@@ -530,6 +603,9 @@ ngApp.service('postingService', function ($http) {
     this.fetchSinglePosting = function(id){
 	return $http.get('/api/postings/' + id) 
     }
+    this.publicPostingPost = function(post){
+	return $http.post('/authAPI/finalPostings', post)
+    }
 
 });
 
@@ -582,6 +658,7 @@ ngApp.service('reverseGeocodingService', function ($http) {
 		.when('/register', { controller: 'registerCtrl', templateUrl: 'register.html'} )
 		.when('/login', { controller: 'loginCtrl', templateUrl: 'login.html'} )
 		.when('/editPosting/:id', { controller: 'editPostingCtrl', templateUrl: 'editPosting.html'} )
+		.when('/adminEditPostingDetail/:id', { controller: 'adminEditPostingCtrl', templateUrl: 'adminPostingEdit.html'} )
 		.when('/profile', { controller: 'profileCtrl', templateUrl: 'profile.html'} )
 		.otherwise({redirectTo: '/'});
 

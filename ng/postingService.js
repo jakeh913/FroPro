@@ -8,5 +8,8 @@ ngApp.service('postingService', function ($http) {
     this.fetchSinglePosting = function(id){
 	return $http.get('/api/postings/' + id) 
     }
+    this.publicPostingPost = function(post){
+	return $http.post('/authAPI/finalPostings', post)
+    }
 
 });

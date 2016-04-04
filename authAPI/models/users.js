@@ -13,6 +13,7 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  role: {type: String, default: 'admin'},
   hash: String,
   salt: String,
   dateInit: { type: Date, required: true, default: Date.now },
