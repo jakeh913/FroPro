@@ -1,4 +1,4 @@
-ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $routeParams, postingService, $http) {
+ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $routeParams, postingService, $http, meanData) {
     postingService.fetchSinglePosting($routeParams.id)
     .success(function(response){
 	return $scope.adminPostingEditDetail = response
@@ -6,6 +6,13 @@ ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $
     .error(function(e){
 	console.log(e);
     });
+
+   /* meanData.getProfile()
+      .success(function(data){console.log("get Profile has populated headers?")} )
+      .error(function (e) {
+        console.log(e);
+      })*/
+
 
     $scope.getLocation = function(val) {
 	return $http.get('//maps.googleapis.com/maps/api/geocode/json', {

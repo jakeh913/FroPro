@@ -1,4 +1,4 @@
-ngApp.service('postingService', function ($http) {
+ngApp.service('postingService', function ($http, authentication) {
     this.postingFetch = function () {
         return $http.get('/api/postings');
     };
@@ -9,7 +9,14 @@ ngApp.service('postingService', function ($http) {
 	return $http.get('/api/postings/' + id) 
     }
     this.publicPostingPost = function(post){
-	return $http.post('/authAPI/finalPostings', post)
-    }
+	return $http.post('/authAPI/finalPostings', 
+	    {
+		headers: {
+          Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9' 
+        }
+
+	    }
+	)
+    };
 
 });

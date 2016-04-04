@@ -330,7 +330,7 @@ ngApp.controller('MainCtrl', ['$scope', '$window', '$location', 'postingService'
     ])
 ;
 
-ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http) {
+ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http, testService) {
 	var revGeocodeAndPost = function(val, approval) {
 	    if (approval === 'approve'){var approve = 1; var postLive = 1}
 	    else if (approval === 'disprove'){var approve = 2; var postLive = 2}
@@ -341,7 +341,7 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 		}
 	    })
 	.then(function(response){
-		    postingService.publicPostingPost( {
+		    testService.testPost(/* {
 			title: $scope.adminPostingEditDetail.title,
 			postingBody: $scope.adminPostingEditDetail.postingBody,
 			loc: $scope.adminPostingEditDetail.loc,
@@ -353,7 +353,7 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 			userID: $scope.adminPostingEditDetail.userID,
 			jobUniqueID: $scope.adminPostingEditDetail.jobUniqueID,
 			version: $scope.adminPostingEditDetail.version
-		    })
+		    }*/)
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
 			    templateUrl: '/adminEditPostingModalTemplate.html',
@@ -379,7 +379,7 @@ $scope.approval = function (approval) {
 
 
 
-ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $routeParams, postingService, $http) {
+ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $routeParams, postingService, $http, meanData) {
     postingService.fetchSinglePosting($routeParams.id)
     .success(function(response){
 	return $scope.adminPostingEditDetail = response
@@ -387,6 +387,13 @@ ngApp.controller('adminEditPostingCtrl', function adminEditPostingCtrl($scope, $
     .error(function(e){
 	console.log(e);
     });
+
+   /* meanData.getProfile()
+      .success(function(data){console.log("get Profile has populated headers?")} )
+      .error(function (e) {
+        console.log(e);
+      })*/
+
 
     $scope.getLocation = function(val) {
 	return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
@@ -593,7 +600,7 @@ $scope.open = function () {
 
 });
 
-ngApp.service('postingService', function ($http) {
+ngApp.service('postingService', function ($http, authentication) {
     this.postingFetch = function () {
         return $http.get('/api/postings');
     };
@@ -604,8 +611,15 @@ ngApp.service('postingService', function ($http) {
 	return $http.get('/api/postings/' + id) 
     }
     this.publicPostingPost = function(post){
-	return $http.post('/authAPI/finalPostings', post)
-    }
+	return $http.post('/authAPI/finalPostings', 
+	    {
+		headers: {
+          Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9' 
+        }
+
+	    }
+	)
+    };
 
 });
 
@@ -678,5 +692,28 @@ ngApp.service('reverseGeocodingService', function ($http) {
     .module('fp')
     .config(['$routeProvider', '$locationProvider', config])
     .run(['$rootScope', '$location', 'authentication', run]);
+
+})();
+
+(function() {
+
+ngApp.service('testService', testService);
+
+  testService.$inject = ['$http', 'authentication'];
+  function testService ($http, authentication) {
+
+    var testPost = function () {
+      return $http({
+	url: '/authAPI/finalPostings',
+	method: 'POST', 
+        headers: {'Authorization': 'Bearer '+ authentication.getToken()},
+        data: {/*insert data here*/}
+      });
+    };
+
+    return {
+      testPost : testPost
+    };
+  }
 
 })();

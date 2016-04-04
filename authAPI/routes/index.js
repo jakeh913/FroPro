@@ -14,7 +14,7 @@ var ctrlAdminPost = require ('../controllers/adminPost');
 //var ctrlPublicPostingsGet = require('../controller/finalPostingsGet');
 
 //Creating route to administrator post DB. The post route will only be available to user with admin privileges. The get route will be wide open.
-router.get('/finalPostings', auth , ctrlAdminPost.checkUserRoleAndPost);
+router.post('/finalPostings', auth , ctrlAdminPost.checkUserRoleAndPost);
 //this get route should be wide open
 //router.get(/finalPostings, 
 

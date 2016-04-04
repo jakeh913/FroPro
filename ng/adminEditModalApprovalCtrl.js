@@ -1,4 +1,4 @@
-ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http) {
+ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http, testService) {
 	var revGeocodeAndPost = function(val, approval) {
 	    if (approval === 'approve'){var approve = 1; var postLive = 1}
 	    else if (approval === 'disprove'){var approve = 2; var postLive = 2}
@@ -9,7 +9,7 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 		}
 	    })
 	.then(function(response){
-		    postingService.publicPostingPost( {
+		    testService.testPost(/* {
 			title: $scope.adminPostingEditDetail.title,
 			postingBody: $scope.adminPostingEditDetail.postingBody,
 			loc: $scope.adminPostingEditDetail.loc,
@@ -21,7 +21,7 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 			userID: $scope.adminPostingEditDetail.userID,
 			jobUniqueID: $scope.adminPostingEditDetail.jobUniqueID,
 			version: $scope.adminPostingEditDetail.version
-		    })
+		    }*/)
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
 			    templateUrl: '/adminEditPostingModalTemplate.html',
