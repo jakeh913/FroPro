@@ -24,7 +24,9 @@ router.post('/', function (req, res, next) {
 		awaitingMod: req.body.awaitingMod, 
 		postStatus: req.body.postStatus,
 		userPosted: req.body.userPosted,
-		userID: req.body.userID
+		userID: req.body.userID,
+		jobUniqueID: req.body.jobUniqueID,
+		version: req.body.version
 	 });
 	 
     posting.save(function (err, posting) {

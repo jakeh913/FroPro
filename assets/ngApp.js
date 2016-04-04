@@ -78,6 +78,7 @@ ngApp.service('authentication', authentication);
 
 
 })();
+
 (function() {
 
 ngApp.service('meanData', meanData);
@@ -328,6 +329,82 @@ ngApp.controller('MainCtrl', ['$scope', '$window', '$location', 'postingService'
     ])
 ;
 
+ngApp.controller('editModalOpenCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http) {
+	var revGeocodeAndPost = function(val) {
+	    return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+		params: {
+		address: val,
+		sensor: false
+		}
+	})
+	.then(function(response){
+		meanData.getProfile()
+		.success(function(r){
+		    postingService.postingPost( {
+			title: $scope.editPostingDetail.title,
+			postingBody: $scope.editPostingDetail.postingBody,
+			loc: $scope.editPostingDetail.loc,
+			locationLat: response.data.results[0].geometry.location.lat,
+			locationLng: response.data.results[0].geometry.location.lng,
+			awaitingMod: 1,
+			postStatus: 1,
+			userPosted: r.email,
+			userID: r._id,
+			jobUniqueID: $scope.editPostingDetail.jobUniqueID,
+			version: $scope.editPostingDetail.version + 1
+		    })
+		    .success(function(response){
+			var modalInstance = $uibModal.open({
+			    templateUrl: '/editPostingModalTemplate.html',
+			    controller: 'ModalInstanceCtrl'
+			});
+			return $location.path('/profile');
+		    })
+		    .error(function(e){
+			console.log("Error posting to DB:" + e);
+		    });
+		})
+		.error(function(e){
+		    console.log(e)
+		})
+	});
+	};
+
+$scope.animationsEnabled = true;
+$scope.open = function () {
+    revGeocodeAndPost($scope.editPostingDetail.loc);
+};
+
+});  
+
+  
+
+
+
+
+ngApp.controller('editPostingCtrl', function editPostingCtrl($scope, $routeParams, postingService, $http) {
+    postingService.fetchSinglePosting($routeParams.id)
+    .success(function(response){
+	return $scope.editPostingDetail = response
+    })
+    .error(function(e){
+	console.log(e);
+    });
+
+    $scope.getLocation = function(val) {
+	return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+		params: {
+	 	address: val,
+		sensor: false
+	}
+	}).then(function(response){
+		return response.data.results.map(function(item){
+		    return item.formatted_address;						
+		});
+	});
+    };
+});
+
 ngApp.controller('NewPostingCtrl', function NewPostingCtrl($scope, $http) {
     $scope.data = {};
     $scope.getLocation = function(val) {
@@ -369,6 +446,7 @@ ngApp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
   //  $uibModalInstance.dismiss('cancel');
   //};
 });
+
 ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingService, $location, meanData, reverseGeocodingService, $http) {
 	var revGeocodeAndPost = function(val) {
 	    return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
@@ -388,7 +466,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			awaitingMod: 1,
 			postStatus: 1,
 			userPosted: r.email,
-			userID: r._id 
+			userID: r._id,
+			version: 0 
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
@@ -412,7 +491,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			awaitingMod: 1,
 			postStatus: 1,
 			userPosted: "Not authenticated",
-			userID: "None"
+			userID: "None",
+			version: 0
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
@@ -501,7 +581,8 @@ ngApp.service('reverseGeocodingService', function ($http) {
 		.when('/posting', { controller: 'NewPostingCtrl', templateUrl: 'newPosting.html'} )
 		.when('/register', { controller: 'registerCtrl', templateUrl: 'register.html'} )
 		.when('/login', { controller: 'loginCtrl', templateUrl: 'login.html'} )
-      	.when('/profile', { controller: 'profileCtrl', templateUrl: 'profile.html'} )
+		.when('/editPosting/:id', { controller: 'editPostingCtrl', templateUrl: 'editPosting.html'} )
+		.when('/profile', { controller: 'profileCtrl', templateUrl: 'profile.html'} )
 		.otherwise({redirectTo: '/'});
 
     // use the HTML5 History API

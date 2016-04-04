@@ -5,7 +5,7 @@
 			<div class="row">
 				<label class="col-xs-2">Job Title</label>
 				<div class="col-xs-5">
-					<input type="text" class="form-control" ng-model="data.jobTitle" placeholder="Enter Job Title Here" name="fullName" />
+					<input type="text" class="form-control" ng-model="editPostingDetail.title" placeholder="Enter Job Title Here" name="fullName" />
 				</div>
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 			<div class="row">
 				<label class="col-xs-2">Location</label>
 				<div class="col-xs-5">
-					<input type="text" ng-model="data.loc" placeholder="Locations loaded via $http" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+					<input type="text" ng-model="editPostingDetail.loc" placeholder="Locations loaded via $http" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
     <div ng-show="noResults">
       <i class="glyphicon glyphicon-remove"></i> No Results Found
@@ -30,12 +30,12 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<textarea  ui-tinymce="{menubar: false, statusbar: false, encoding: 'xml'}" data-ng-model="data.html" ></textarea>
+					<textarea  ui-tinymce="{menubar: false, statusbar: false, encoding: 'xml'}" data-ng-model="editPostingDetail.postingBody" ></textarea>
 				</div>
 			</div>
 		</div>
 		<div class="form-group">
-			<div ng-controller="ModalDemoCtrl">
+			<div ng-controller="editModalOpenCtrl">
 				<button type="button" class="btn btn-default" ng-click="open()">Save Edits</button>
 			</div>
 		</div>
@@ -43,10 +43,10 @@
 	<div id='preview'>
 		<hr></hr>
 		<h3>Preview Job Posting</h3>
-		<h4><b>Job Title: </b>{{data.jobTitle}}</h4>
-		<h4><b>Location: </b>{{data.loc}}{{lat}}, {{getLocation.geometry.location.lng}}</h4>
-		<p><b>Description and Details:</b><span ng-bind-html="' ' + data.html.substr(3)" ></span></p>
-		<div ng-controller="ModalDemoCtrl">
+		<h4><b>Job Title: </b>{{editPostingDetail.title}}</h4>
+		<h4><b>Location: </b>{{editPostingDetail.loc}}{{lat}}, {{getLocation.geometry.location.lng}}</h4>
+		<p><b>Description and Details:</b><span ng-bind-html="' ' + editPostingDetail.postingBody.html.substr(3)" ></span></p>
+		<div ng-controller="editModalOpenCtrl">
 			<button type="button" class="btn btn-default" ng-click="open()">Save Edits</button>
 		</div>
 	</div>

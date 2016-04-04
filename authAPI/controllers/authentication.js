@@ -22,7 +22,6 @@ module.exports.register = function(req, res) {
   user.email = req.body.email;
 
   user.setPassword(req.body.password);
- console.log('made it here!') // error tracing -- here's your problem March 21, 2016
   user.save(function(err) {
     var token;
     token = user.generateJwt();

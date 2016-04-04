@@ -9,7 +9,8 @@
 		.when('/posting', { controller: 'NewPostingCtrl', templateUrl: 'newPosting.html'} )
 		.when('/register', { controller: 'registerCtrl', templateUrl: 'register.html'} )
 		.when('/login', { controller: 'loginCtrl', templateUrl: 'login.html'} )
-      	.when('/profile', { controller: 'profileCtrl', templateUrl: 'profile.html'} )
+		.when('/editPosting/:id', { controller: 'editPostingCtrl', templateUrl: 'editPosting.html'} )
+		.when('/profile', { controller: 'profileCtrl', templateUrl: 'profile.html'} )
 		.otherwise({redirectTo: '/'});
 
     // use the HTML5 History API

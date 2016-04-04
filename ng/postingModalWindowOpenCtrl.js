@@ -17,7 +17,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			awaitingMod: 1,
 			postStatus: 1,
 			userPosted: r.email,
-			userID: r._id 
+			userID: r._id,
+			version: 0 
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
@@ -41,7 +42,8 @@ ngApp.controller('ModalDemoCtrl', function ($scope, $uibModal, $log, postingServ
 			awaitingMod: 1,
 			postStatus: 1,
 			userPosted: "Not authenticated",
-			userID: "None"
+			userID: "None",
+			version: 0
 		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
