@@ -341,7 +341,7 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 		}
 	    })
 	.then(function(response){
-		    testService.testPost(/* {
+		    testService.testPost({
 			title: $scope.adminPostingEditDetail.title,
 			postingBody: $scope.adminPostingEditDetail.postingBody,
 			loc: $scope.adminPostingEditDetail.loc,
@@ -349,11 +349,12 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 			locationLng: response.data.results[0].geometry.location.lng,
 			awaitingMod: 0,
 			postStatus: postLive,
+			date: $scope.adminPostingEditDetail.date,
 			userPosted: 'publicly hidden',
 			userID: $scope.adminPostingEditDetail.userID,
 			jobUniqueID: $scope.adminPostingEditDetail.jobUniqueID,
 			version: $scope.adminPostingEditDetail.version
-		    }*/)
+		    })
 		    .success(function(response){
 			var modalInstance = $uibModal.open({
 			    templateUrl: '/adminEditPostingModalTemplate.html',
@@ -702,12 +703,12 @@ ngApp.service('testService', testService);
   testService.$inject = ['$http', 'authentication'];
   function testService ($http, authentication) {
 
-    var testPost = function () {
+    var testPost = function (post) {
       return $http({
 	url: '/authAPI/finalPostings',
 	method: 'POST', 
         headers: {'Authorization': 'Bearer '+ authentication.getToken()},
-        data: {/*insert data here*/}
+        data: post
       });
     };
 

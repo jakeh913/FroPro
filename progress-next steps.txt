@@ -20,3 +20,4 @@ DONE - Load data into map
  
 NOTES: April 4:
 -General goal is to keep moving forward setting up finalPostings database that anyone can GET and only Admin can POST, setting up postings DB to be restricted to Admin for GET and but anyone to POST. Need lots of work on functionality for Admin to approve and transfer postings in the postings model to the finalpostings model. This will require an Admin dash and more functionality at the single post admin side. More work will also need to be done for editings and updating functionalities for user. Then, tie in LinkedIn API, email functionality, mobile-friendliness (Bootstrap nav), and additional map manipulation.
+NOTES: April 5: Posting to finalPostings DB successfully from Admin role. Continue setting up the admin approval modal and beyond.

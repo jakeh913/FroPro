@@ -1,6 +1,6 @@
 var db = require('../../db');
 var mongoose = require('mongoose');
-var publicPostingInfo = db.Schema({
+var publicPostingInfo = new db.Schema({
     title: { type: String, required: true },
     postingBody: { type: String, required: true },
 	loc: { type: String, required: true },
@@ -13,7 +13,7 @@ var publicPostingInfo = db.Schema({
 	userPosted: { type: String,  required: true },
 	userID: {type: String, required: false},
 	jobUniqueID: {type: String,  required: false, unique: true},
-	version: {type: Number, required: true},
+	version: {type: Number, required: true}
 	
 })
 	
