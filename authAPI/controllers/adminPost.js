@@ -41,6 +41,7 @@ module.exports.checkUserRoleAndPost = function(req, res, next) {
 	console.log(publicPostingPost.locationLng);
 	console.log(publicPostingPost.postStatus);
 	console.log(publicPostingPost.awaitingMod);
+	console.log(publicPostingPost.date);
 	console.log(publicPostingPost.userPosted);
 	console.log(publicPostingPost.userID); 
 	console.log(publicPostingPost.jobUniqueID);

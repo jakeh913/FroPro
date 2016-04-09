@@ -12,7 +12,7 @@ var publicPostingInfo = new db.Schema({
 	date: { type: Date, required: true  },
 	userPosted: { type: String,  required: true },
 	userID: {type: String, required: false},
-	jobUniqueID: {type: String,  required: false, unique: true},
+	jobUniqueID: {type: String,  required: false},
 	version: {type: Number, required: true}
 	
 })

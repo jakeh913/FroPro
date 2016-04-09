@@ -25,7 +25,7 @@ ngApp.controller('MainCtrl', ['$scope', '$window', '$location', 'postingService'
 					map.fitBounds([[35, -120],[55, -80]])
 			});
 			
-			postingService.postingFetch()
+			postingService.finalPostingFetch()
 			.then(function(response){
 				return $scope.postings = response.data;
 			})

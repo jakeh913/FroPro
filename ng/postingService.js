@@ -18,5 +18,9 @@ ngApp.service('postingService', function ($http, authentication) {
 	    }
 	)
     };
+    this.finalPostingFetch = function () {
+        return $http.get('/authAPI/finalPostings');
+    };
+
 
 });

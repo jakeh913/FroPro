@@ -32,14 +32,19 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 		    })
 		    .error(function(e){
 			console.log("Error posting to Public Post DB:" + e);
+			var modalInstance = $uibModal.open({
+			    templateUrl: '/errorModalTemplate.html',
+			    controller: 'ModalInstanceCtrl'
+			});
+
 		    });
 		})
 	};
 
 $scope.animationsEnabled = true;
-$scope.approval = function (approval) {
-    revGeocodeAndPost($scope.adminPostingEditDetail.loc, approval);
-};
+    $scope.approval = function (approval) {
+	revGeocodeAndPost($scope.adminPostingEditDetail.loc, approval);
+    };
 
 });  
 

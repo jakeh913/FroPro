@@ -312,7 +312,7 @@ ngApp.controller('MainCtrl', ['$scope', '$window', '$location', 'postingService'
 					map.fitBounds([[35, -120],[55, -80]])
 			});
 			
-			postingService.postingFetch()
+			postingService.finalPostingFetch()
 			.then(function(response){
 				return $scope.postings = response.data;
 			})
@@ -364,14 +364,19 @@ ngApp.controller('adminEditModalApprovalCtrl', function ($scope, $uibModal, $log
 		    })
 		    .error(function(e){
 			console.log("Error posting to Public Post DB:" + e);
+			var modalInstance = $uibModal.open({
+			    templateUrl: '/errorModalTemplate.html',
+			    controller: 'ModalInstanceCtrl'
+			});
+
 		    });
 		})
 	};
 
 $scope.animationsEnabled = true;
-$scope.approval = function (approval) {
-    revGeocodeAndPost($scope.adminPostingEditDetail.loc, approval);
-};
+    $scope.approval = function (approval) {
+	revGeocodeAndPost($scope.adminPostingEditDetail.loc, approval);
+    };
 
 });  
 
@@ -621,6 +626,10 @@ ngApp.service('postingService', function ($http, authentication) {
 	    }
 	)
     };
+    this.finalPostingFetch = function () {
+        return $http.get('/authAPI/finalPostings');
+    };
+
 
 });
 
