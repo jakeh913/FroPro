@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
+var passport = require('passport');
 var config = require('../../config');
 var auth = jwt({
   secret: config.jwtSecretKey,
@@ -26,5 +27,16 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 // authentication
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
+
+//linkedin tries
+router.get('/auth/linkedin', passport.authenticate('linkedin', {state: 'fdafkjdf', scope: ['r_basicprofile', 'r_emailaddress']}),
+function(req,res){
+	});
+router.get('/auth/linkedin/callback', 
+  passport.authenticate('linkedin', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+
+  });
 
 module.exports = router;

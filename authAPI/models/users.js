@@ -7,16 +7,17 @@ var userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    required: false
   },
   company: {
     type: String,
     required: false
   },
+  linkedinID: {type: String, required: false},
   role: {type: String, default: 'admin'},
   hash: String,
   salt: String,
-  dateInit: { type: Date, required: true, default: Date.now },
+  dateInit: { type: Date, required: false, default: Date.now },
   dateUpdated: { type: Date }
 });
 
