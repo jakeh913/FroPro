@@ -1,11 +1,9 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var LinkedInStrategy = require('passport-linkedin').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var config = require('../../config');
-console.log(config.LinkedIn_ID);
-console.log(config.LinkedIn_Secret);
+
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
@@ -31,15 +29,4 @@ passport.use(new LocalStrategy({
   }
 ));
 
-passport.use(new LinkedInStrategy({
-	consumerKey: config.LinkedIn_ID,
-	consumerSecret: config.LinkedIn_Secret, 
-	callbackURL: "http://127.0.0.1:9001/authAPI/auth/linkedin/callback"
-	},
-	function(token, tokenSecret, profile, done){
-		User.findOrCreate({ linkedinID: profile.id }, function (err, user) {
-				return done(err, user);
-		});	
-	}
-));
 	

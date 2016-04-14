@@ -29,14 +29,6 @@ router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
 //linkedin tries
-router.get('/auth/linkedin', passport.authenticate('linkedin', {state: 'fdafkjdf', scope: ['r_basicprofile', 'r_emailaddress']}),
-function(req,res){
-	});
-router.get('/auth/linkedin/callback', 
-  passport.authenticate('linkedin', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect('/');
-
-  });
-
+router.get('/auth/linkedin', //FINISH THIS OR SERVER WON'T WORK -- LOOK AT PASSPORT-OAUTH APP
+router.get('/auth/linkedin/callback', //FINISH THIS OR SERVER WON'T WORK
 module.exports = router;
