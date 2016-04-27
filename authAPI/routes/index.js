@@ -29,6 +29,6 @@ router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
 //linkedin tries
-router.get('/auth/linkedin', //FINISH THIS OR SERVER WON'T WORK -- LOOK AT PASSPORT-OAUTH APP
-router.get('/auth/linkedin/callback', //FINISH THIS OR SERVER WON'T WORK
+router.get('/auth/linkedin', passport.authenticate('linkedin', {state: config.LinkedIn_State}));
+router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {successRedirect: '/', failureRedirect: '/#/login'}))
 module.exports = router;
